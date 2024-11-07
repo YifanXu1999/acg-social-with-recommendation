@@ -13,6 +13,6 @@ public class HelloWorld {
     private String dataMessage;
     @GetMapping
     public String hello() {
-        return dataMessage + " Hello orld";
+        return dataMessage + " Hello orl";
     }
 }
