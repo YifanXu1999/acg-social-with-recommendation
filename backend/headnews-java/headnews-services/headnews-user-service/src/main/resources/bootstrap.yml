@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: user-service
+#  profiles:
+#    active: dev
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        enabled: true
+        service-name: ${spring.application.name}
+      config:
+        enabled: true
+        default-context: user-service
+        profile-separator: ','
+        format: YAML
+        data-key: configuration
+
+
+#dataMessage: "Hello from user-service"
+
+
