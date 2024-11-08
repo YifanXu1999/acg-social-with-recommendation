@@ -1,0 +1,16 @@
+
+//
+//apply plugin: 'org.springframework.boot'
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = false
+}
+
+subprojects {
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-config:4.1.3'
+    }
+}
