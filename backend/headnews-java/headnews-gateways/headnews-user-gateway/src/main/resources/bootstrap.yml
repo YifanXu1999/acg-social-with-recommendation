@@ -8,11 +8,15 @@ spring:
       discovery:
         enabled: true
         service-name: ${spring.application.name}
+        register: true
     gateway:
       routes:
         - id: user-service-route
           uri: lb://user-service
           predicates:
             - Path=/user-service/**
+          filters:
+            - RewritePath=/user-service/(?<remaining>.*), /user/$\{remaining}
+
 server:
   port: 18080

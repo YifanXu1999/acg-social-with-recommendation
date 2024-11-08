@@ -12,6 +12,7 @@ spring:
         service-name: ${spring.application.name}
       config:
         enabled: true
+        register: true
         default-context: env
         profile-separator: '-'
         format: YAML
@@ -21,8 +22,10 @@ spring:
 
 #dataMessage: "Hello from user-service"
 
-
 security:
   jwt:
     secret-key: sQwCpufC3O4dhwz3JzNpgtpKxH39JbbGZTZ3WlkY6YQ # "secrct": "user-service"
     expiration-time: 86400000
+server:
+  servlet:
+    context-path: /user
