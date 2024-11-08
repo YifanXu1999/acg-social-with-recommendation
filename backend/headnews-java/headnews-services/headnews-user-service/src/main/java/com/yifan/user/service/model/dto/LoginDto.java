@@ -1,4 +1,4 @@
-package com.yifan.service.userserice.model.dto;
+package com.yifan.user.service.model.dto;
 
 
 import lombok.AllArgsConstructor;

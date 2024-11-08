@@ -1,6 +1,6 @@
-package com.yifan.service.userserice.configuration;
+package com.yifan.user.service.configuration;
 
-import com.yifan.service.userserice.filter.JwtAuthenticationFilter;
+import com.yifan.user.service.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

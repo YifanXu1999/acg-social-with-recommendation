@@ -1,4 +1,4 @@
-package com.yifan.service.userserice;
+package com.yifan.user.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

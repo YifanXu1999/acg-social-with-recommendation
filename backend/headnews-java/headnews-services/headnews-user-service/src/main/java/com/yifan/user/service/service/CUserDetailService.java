@@ -1,4 +1,4 @@
-package com.yifan.service.userserice.service;
+package com.yifan.user.service.service;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,13 +1,11 @@
-package com.yifan.service.userserice.controller;
+package com.yifan.user.service.controller;
 
-import com.yifan.service.userserice.model.dto.LoginDto;
-import com.yifan.service.userserice.service.CUserDetailService;
+import com.yifan.user.service.model.dto.LoginDto;
 import com.yifan.utils.jwt.JwtUtilService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
