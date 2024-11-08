@@ -22,7 +22,8 @@
 	<modules>
 		<module>headnews-services</module>
 		<module>headnews-utils</module>
-	</modules>
+        <module>headnews-gateways</module>
+    </modules>
 	<scm>
 		<connection/>
 		<developerConnection/>
@@ -32,7 +33,7 @@
 	<properties>
 		<spring.boot.version>3.3.5</spring.boot.version>
 		<consul.discovery.version>4.1.2</consul.discovery.version>
-		<spring.cloud.starter.bootstrap.version>4.1.4</spring.cloud.starter.bootstrap.version>
+		<spring.cloud.starter.version>4.1.4</spring.cloud.starter.version>
 		<jwt.version>0.11.5</jwt.version>
 		<lombok.version>1.18.34</lombok.version>
 	</properties>
@@ -76,9 +77,14 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-bootstrap</artifactId>
-				<version>${spring.cloud.starter.bootstrap.version}</version>
+				<version>${spring.cloud.starter.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-gateway</artifactId>
+				<version>${spring.cloud.starter.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
