@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/hello")
 public class HelloWorld {
 
-    @Value("${dataMessage}")
-    private String dataMessage;
+
     @GetMapping
     public String hello() {
-        return dataMessage + " Hesllo orl";
+        return   " Hesllo orl";
     }
 }
