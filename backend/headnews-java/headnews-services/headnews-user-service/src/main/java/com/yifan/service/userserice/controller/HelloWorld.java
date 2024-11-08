@@ -12,6 +12,7 @@ public class HelloWorld {
 
     @GetMapping
     public String hello() {
+        System.out.println("Hello World");
         return   " Hesllo orl";
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class CustomerDetailsService implements UserDetailsService {
+public class CUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

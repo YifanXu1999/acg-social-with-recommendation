@@ -24,5 +24,5 @@ spring:
 
 security:
   jwt:
-    secret-key: secret
+    secret-key: sQwCpufC3O4dhwz3JzNpgtpKxH39JbbGZTZ3WlkY6YQ # "secrct": "user-service"
     expiration-time: 86400000
