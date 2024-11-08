@@ -18,18 +18,31 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    /**
+     * Bean definition for PasswordEncoder.
+     * Uses BCryptPasswordEncoder with a strength of 10.
+     *
+     * @return PasswordEncoder instance
+     */
     @Bean
-    public  PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
 
+    /**
+     * Configures the security filter chain.
+     * Disables CSRF protection, permits all requests to /login, and requires authentication for all other requests.
+     * Adds JwtAuthenticationFilter before UsernamePasswordAuthenticationFilter.
+     *
+     * @param http the HttpSecurity to modify
+     * @return the SecurityFilterChain
+     * @throws Exception if an error occurs while configuring the security filter chain
+     */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers("/login").permitAll();
@@ -41,6 +54,14 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Bean definition for AuthenticationManager.
+     * Retrieves the AuthenticationManager from the provided AuthenticationConfiguration.
+     *
+     * @param configuration the AuthenticationConfiguration to use
+     * @return the AuthenticationManager
+     * @throws Exception if an error occurs while retrieving the AuthenticationManager
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
