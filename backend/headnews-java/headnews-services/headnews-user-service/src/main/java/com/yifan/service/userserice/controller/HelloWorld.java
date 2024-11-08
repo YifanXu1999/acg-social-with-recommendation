@@ -1,4 +1,4 @@
-package com.yifan.userserice.controller;
+package com.yifan.service.userserice.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

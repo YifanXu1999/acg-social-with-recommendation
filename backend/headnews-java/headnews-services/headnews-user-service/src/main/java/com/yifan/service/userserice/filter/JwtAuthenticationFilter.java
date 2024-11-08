@@ -1,5 +1,6 @@
-package com.yifan.userserice.filter;
+package com.yifan.service.userserice.filter;
 
+import com.yifan.utils.jwt.JwtUtilService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -14,7 +15,8 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter  extends OncePerRequestFilter {
 
-    public JwtAuthenticationFilter() {
+
+    public JwtAuthenticationFilter(JwtUtilService jwtUtilService) {
         super();
     }
 
