@@ -9,8 +9,16 @@ Day 1:
 - [ ] Springboot Project Setup
 - [ ] Consul Setup
 
-# Planing
+Day 2:
 
-- [ ] User Personal Information Details Data Model
-- [ ] Spring Security Oauth 2 Login
-- [ ] Front End Login Page
+- [ ] headnews-user-service Spring Security JWT Token
+- [ ] portainer setup
+
+# Planing 
+
+
+
+## Tomorrow
+
+- [ ] Swagger
+- [ ] Global Exception Handler
