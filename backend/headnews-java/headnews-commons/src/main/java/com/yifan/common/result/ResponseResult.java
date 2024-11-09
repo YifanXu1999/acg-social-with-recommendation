@@ -4,7 +4,7 @@ import com.yifan.common.enum_.AppHttpCodeEnum;
 import java.io.Serializable;
 
 
-public class ResponseResult<T> implements Serializable {
+public class ResponseResult implements Serializable {
 
     private String host;
 
@@ -12,18 +12,18 @@ public class ResponseResult<T> implements Serializable {
 
     private String errorMessage;
 
-    private T data;
+    private Object data;
 
     public ResponseResult() {
         this.code = 200;
     }
 
-    public ResponseResult(Integer code, T data) {
+    public ResponseResult(Integer code, Object data) {
         this.code = code;
         this.data = data;
     }
 
-    public ResponseResult(Integer code, String msg, T data) {
+    public ResponseResult(Integer code, String msg, Object data) {
         this.code = code;
         this.errorMessage = msg;
         this.data = data;
@@ -68,26 +68,26 @@ public class ResponseResult<T> implements Serializable {
         return okResult(enums.getCode(),errorMessage);
     }
 
-    public ResponseResult<?> error(Integer code, String msg) {
+    public ResponseResult error(Integer code, String msg) {
         this.code = code;
         this.errorMessage = msg;
         return this;
     }
 
-    public ResponseResult<?> ok(Integer code, T data) {
+    public ResponseResult ok(Integer code, Object data) {
         this.code = code;
         this.data = data;
         return this;
     }
 
-    public ResponseResult<?> ok(Integer code, T data, String msg) {
+    public ResponseResult ok(Integer code, Object data, String msg) {
         this.code = code;
         this.data = data;
         this.errorMessage = msg;
         return this;
     }
 
-    public ResponseResult<?> ok(T data) {
+    public ResponseResult ok(Object data) {
         this.data = data;
         return this;
     }
@@ -108,11 +108,11 @@ public class ResponseResult<T> implements Serializable {
         this.errorMessage = errorMessage;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
