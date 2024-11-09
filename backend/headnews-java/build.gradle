@@ -10,6 +10,8 @@ buildscript {
         lombokVersion = '1.18.34'
         jsonwebtoken = '0.11.5'
         Oauth2ClientVersion ='6.3.4'
+        swaggerVersion = '2.2.25'
+        openApiVersion = '2.6.0'
     }
 
     repositories {
@@ -53,6 +55,8 @@ subprojects {
             dependency "org.springframework.cloud:spring-cloud-gateway-server:${springCloudStarterVersion}"
             dependency "org.springframework.cloud:spring-cloud-starter-gateway:${springCloudStarterVersion}"
             dependency "org.springframework.security:spring-security-oauth2-client:${Oauth2ClientVersion}"
+            dependency "io.swagger.core.v3:swagger-core:${swaggerVersion}"
+            dependency "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openApiVersion}"
         }
 
     }
@@ -64,7 +68,6 @@ subprojects {
 
 project("headnews-gateways") {
     subprojects {
-
         dependencies {
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
@@ -88,8 +91,8 @@ project("headnews-services") {
 
     subprojects {
         dependencies {
+            implementation project(":headnews-commons")
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
-
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
             implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
             implementation project(":headnews-utils")
@@ -104,6 +107,19 @@ project("headnews-services") {
         }
     }
 
+}
+
+project("headnews-commons") {
+    bootJar {
+        enabled = false
+    }
+    dependencies {
+        implementation 'io.swagger.core.v3:swagger-core'
+        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui'
+        implementation 'org.springframework:spring-beans'
+        implementation 'org.springframework:spring-context'
+        implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+    }
 }
 
 
