@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 @Component("customControllerAdvice")
 @Slf4j
-public class ExceptionCatch {
+public class ExceptionControllerAdvice {
 
 
     @ExceptionHandler(Exception.class)

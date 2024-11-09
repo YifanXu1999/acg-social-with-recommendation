@@ -70,10 +70,12 @@ subprojects {
 project("headnews-gateways") {
     subprojects {
         dependencies {
+            implementation project(":headnews-utils")
+            implementation project(":headnews-commons")
+
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
             implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-            implementation project(":headnews-utils")
             implementation 'org.springframework.boot:spring-boot-starter-actuator'
             implementation 'org.springframework.boot:spring-boot-starter-security'
             implementation 'org.springframework.security:spring-security-web'  // Specify version if not managed by BOM
@@ -93,10 +95,11 @@ project("headnews-services") {
     subprojects {
         dependencies {
             implementation project(":headnews-commons")
+            implementation project(":headnews-utils")
+
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
             implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-            implementation project(":headnews-utils")
             implementation 'org.springframework.boot:spring-boot-starter-actuator'
             implementation 'org.springframework.boot:spring-boot-starter-web'
             implementation 'org.springframework.boot:spring-boot-starter-security'
