@@ -13,8 +13,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@Configuration
-@EnableWebFluxSecurity
+//@Configuration
+//@EnableWebFluxSecurity
 public class SecurityConfig {
 
     @Bean
