@@ -67,8 +67,8 @@ project("headnews-gateways") {
             implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
             implementation project(":headnews-utils")
             implementation 'org.springframework.boot:spring-boot-starter-actuator'
-            implementation 'org.springframework.boot:spring-boot-starter-web'
-            implementation 'org.springframework.boot:spring-boot-starter-security'
+//            implementation 'org.springframework.boot:spring-boot-starter-web'
+//            implementation 'org.springframework.boot:spring-boot-starter-security'
             implementation 'org.springframework.security:spring-security-web'  // Specify version if not managed by BOM
             implementation 'io.jsonwebtoken:jjwt-api'       // Specify version if not managed by BOM
             implementation 'io.jsonwebtoken:jjwt-impl'      // Specify version if not managed by BOM

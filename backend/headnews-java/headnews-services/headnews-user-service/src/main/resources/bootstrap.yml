@@ -10,6 +10,7 @@ spring:
       discovery:
         enabled: true
         service-name: ${spring.application.name}
+        health-check-path: /user/actuator/health
       config:
         enabled: true
         register: true
@@ -18,6 +19,7 @@ spring:
         format: YAML
         data-key: properties
         prefixes: /config/user-service
+
 
 
 #dataMessage: "Hello from user-service"
