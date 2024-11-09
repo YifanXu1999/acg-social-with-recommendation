@@ -19,10 +19,19 @@ Day 3:
 - [ ] Setup Github Oauth2 Client
 - [ ] Migrate backend project from maven to cradle
 
+Day 4:
+
+- [ ]  Global Exception Handler
+- [ ] Swagger
+
 # Planing 
 
-- [ ] Swagger
-- [ ] Global Exception Handler
 - [ ] Setup Timescale DB
+
+- [ ] DB Change Integration with Flyway
+
 - [ ] User Login and Signup
+
 - [ ] Frontend Homepage with login
+
+  
