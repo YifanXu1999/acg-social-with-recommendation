@@ -49,6 +49,8 @@ subprojects {
             dependency "io.jsonwebtoken:jjwt-impl:${jwtVersion}"     // Specify version if not managed by BOM
             dependency "io.jsonwebtoken:jjwt-jackson:${jwtVersion}"
             dependency "org.springframework.cloud:spring-cloud-starter-bootstrap:${springCloudStarterVersion}"
+            dependency "org.springframework.cloud:spring-cloud-gateway-server:${springCloudStarterVersion}"
+            dependency "org.springframework.cloud:spring-cloud-starter-gateway:${springCloudStarterVersion}"
         }
 
     }
@@ -74,6 +76,8 @@ project("headnews-gateways") {
             implementation 'io.jsonwebtoken:jjwt-impl'      // Specify version if not managed by BOM
             implementation 'io.jsonwebtoken:jjwt-jackson'
             implementation "org.springframework.cloud:spring-cloud-starter-bootstrap"
+            implementation "org.springframework.cloud:spring-cloud-gateway-server"
+            implementation "org.springframework.cloud:spring-cloud-starter-gateway"
         }
     }
 }
