@@ -1,8 +1,8 @@
 spring:
   application:
     name: user-service
-#  profiles:
-#    active: dev
+  #  profiles:
+  #    active: dev
   cloud:
     consul:
       host: 127.0.0.1
