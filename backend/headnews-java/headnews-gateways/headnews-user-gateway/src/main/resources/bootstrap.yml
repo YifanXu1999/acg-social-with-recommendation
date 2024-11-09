@@ -2,6 +2,11 @@ spring:
   application:
     name: user-gateway
   cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
     consul:
       hostname: 127.0.0.1
       port: 8500
@@ -9,14 +14,18 @@ spring:
         enabled: true
         service-name: ${spring.application.name}
         register: true
-    gateway:
-      routes:
-        - id: user-service-route
-          uri: lb://user-service
-          predicates:
-            - Path=/user-service/**
-          filters:
-            - RewritePath=/user-service/(?<remaining>.*), /user/$\{remaining}
+
+#      routes:
+#        - id: user-service-route
+#          uri: lb://user-service
+#          predicates:
+#            - Path=/user-service/**
+#          filters:
+#            - RewritePath=/user-service/(?<remaining>.*), /user/$\{remaining}
 
 server:
   port: 18080
+
+logging:
+  level:
+    org.springframework: info

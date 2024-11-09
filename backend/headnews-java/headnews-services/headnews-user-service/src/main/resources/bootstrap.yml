@@ -31,3 +31,8 @@ security:
 server:
   servlet:
     context-path: /user
+
+
+logging:
+  level:
+    org.springframework: TRACE
