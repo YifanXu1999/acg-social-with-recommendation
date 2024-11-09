@@ -1,4 +1,4 @@
-package com.yifan.models.pojo.user;
+package com.yifan.models.pojo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

@@ -1,21 +1,23 @@
 package com.yifan.models.pojo.user;
 
+import com.yifan.models.pojo.BaseEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "user_info")
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class UserInfo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String Email;
 
     @Column(unique = true, nullable = false)
     private String username;

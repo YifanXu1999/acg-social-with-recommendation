@@ -1,8 +1,7 @@
-package com.yifan.common.enum_;
+package com.yifan.common.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @RequiredArgsConstructor
@@ -10,8 +9,11 @@ public enum AppHttpCodeEnum {
     // Success Code = 200
     SUCCESS(200,"Success"),
     // Login Code = 1~50
-    LOGIN_Required(1,"Login Required"),
-    LOGIN_PASSWORD_ERROR(2,"Login Password Error"),
+    User_LOGIN_Required(1,"Login Required"),
+    User_LOGIN_PASSWORD_ERROR(2,"Login Password Error"),
+    User_NOT_EXIST(3,"User Not Exist"),
+    User_EXIST(4,"User Already Created"),
+
     // TOKEN = 50~100
     TOKEN_INVALID(50,"Invalid Token"),
     TOKEN_EXPIRED(51,"Token Expired"),
@@ -27,7 +29,7 @@ public enum AppHttpCodeEnum {
     SERVER_ERROR(503,"Internal Server Error"),
     // Data =  1000~2000
     DATA_EXIST(1000,"Data Duplicate Exception"),
-    USER_DATA_NOT_EXIST(1001,"User Not Exist"),
+
     // Authroization =  3000~3500
     NO_OPERATOR_AUTH(3000,"Not Authorized"),
     NEED_ADMIND(3001,"Required Admin");
