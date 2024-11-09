@@ -1,4 +1,4 @@
-package com.yifan.common.enums;
+package com.yifan.common.enum_;
 
 public enum AppHttpCodeEnum {
     // Success Code = 200

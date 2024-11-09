@@ -1,6 +1,6 @@
 package com.yifan.common.result;
 
-import com.yifan.common.enums.AppHttpCodeEnum;
+import com.yifan.common.enum_.AppHttpCodeEnum;
 import java.io.Serializable;
 
 
