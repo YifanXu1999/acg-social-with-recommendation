@@ -19,7 +19,7 @@ public class ExceptionControllerAdvice {
     public ResponseResult exception(Exception e){
         e.printStackTrace();
         log.error("catch exception:{}",e.getMessage());
-        return ResponseResult.errorResult(AppHttpCodeEnum.SERVER_ERROR);
+        return ResponseResult.error(AppHttpCodeEnum.SERVER_ERROR);
     }
 
 
@@ -27,6 +27,6 @@ public class ExceptionControllerAdvice {
     @ResponseBody
     public ResponseResult exception(CustomException e){
         log.error("catch exception:{}",e);
-        return ResponseResult.errorResult(e.getAppHttpCodeEnum());
+        return ResponseResult.error(e.getAppHttpCodeEnum());
     }
 }

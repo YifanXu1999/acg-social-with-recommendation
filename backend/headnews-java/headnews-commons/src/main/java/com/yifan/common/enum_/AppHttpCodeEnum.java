@@ -1,5 +1,11 @@
 package com.yifan.common.enum_;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@RequiredArgsConstructor
 public enum AppHttpCodeEnum {
     // Success Code = 200
     SUCCESS(200,"Success"),
@@ -26,20 +32,8 @@ public enum AppHttpCodeEnum {
     NO_OPERATOR_AUTH(3000,"Not Authorized"),
     NEED_ADMIND(3001,"Required Admin");
 
-    int code;
+    final int code;
 
-    String errorMessage;
+    final String message;
 
-    AppHttpCodeEnum(int code, String errorMessage){
-        this.code = code;
-        this.errorMessage = errorMessage;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 }
