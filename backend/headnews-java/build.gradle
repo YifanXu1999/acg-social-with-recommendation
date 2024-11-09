@@ -12,6 +12,7 @@ buildscript {
         Oauth2ClientVersion ='6.3.4'
         swaggerVersion = '2.2.25'
         openApiVersion = '2.6.0'
+        postgresqlVersion = '42.7.4'
     }
 
     repositories {
@@ -59,6 +60,8 @@ subprojects {
             dependency "io.swagger.core.v3:swagger-core:${swaggerVersion}"
             dependency "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openApiVersion}"
             dependency "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
+            dependency "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+            dependency "org.postgresql:postgresql:${postgresqlVersion}"
         }
 
     }
@@ -66,7 +69,12 @@ subprojects {
 
 
 
-
+project("headnews-models") {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.postgresql:postgresql'
+    }
+}
 
 project("headnews-gateways") {
     subprojects {
@@ -97,7 +105,7 @@ project("headnews-services") {
         dependencies {
             implementation project(":headnews-commons")
             implementation project(":headnews-utils")
-
+            implementation project(":headnews-models")
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
             implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
