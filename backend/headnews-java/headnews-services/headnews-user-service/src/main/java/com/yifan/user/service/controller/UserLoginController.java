@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("/authenticate")
 @RequiredArgsConstructor
-@Tag(name = "User Profile Controller", description = "Controller for user profile operations")
-public class UserProfileController {
+@Tag(name = "User Authentication Controller", description = "Controller for user authentication operations")
+public class UserLoginController {
 
     private final UserInfoService userInfoService;
 
