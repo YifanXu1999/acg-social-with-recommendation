@@ -119,6 +119,7 @@ project("headnews-services") {
             implementation 'io.jsonwebtoken:jjwt-jackson'
             implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springCloudStarterVersion}"
             implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+            implementation "io.swagger.core.v3:swagger-core"
         }
     }
 
