@@ -1,4 +1,4 @@
-package com.yifan.user.service.model.dto;
+package com.yifan.models.dto.user;
 
 
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class LoginDto {
+public class UserSignUpDto {
 
     private String username;
     private String password;
