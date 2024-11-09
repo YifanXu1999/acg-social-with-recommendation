@@ -1,7 +1,0 @@
-/Users/yifanxu/Projects/headnews-with-recommendation/backend/headnews-java/headnews-services/headnews-user-service/src/main/java/com/yifan/user/service/UserServiceApplication.java
-/Users/yifanxu/Projects/headnews-with-recommendation/backend/headnews-java/headnews-services/headnews-user-service/src/main/java/com/yifan/user/service/configuration/SecurityConfig.java
-/Users/yifanxu/Projects/headnews-with-recommendation/backend/headnews-java/headnews-services/headnews-user-service/src/main/java/com/yifan/user/service/controller/HelloWorld.java
-/Users/yifanxu/Projects/headnews-with-recommendation/backend/headnews-java/headnews-services/headnews-user-service/src/main/java/com/yifan/user/service/controller/UserLoginController.java
-/Users/yifanxu/Projects/headnews-with-recommendation/backend/headnews-java/headnews-services/headnews-user-service/src/main/java/com/yifan/user/service/filter/JwtAuthenticationFilter.java
-/Users/yifanxu/Projects/headnews-with-recommendation/backend/headnews-java/headnews-services/headnews-user-service/src/main/java/com/yifan/user/service/model/dto/LoginDto.java
-/Users/yifanxu/Projects/headnews-with-recommendation/backend/headnews-java/headnews-services/headnews-user-service/src/main/java/com/yifan/user/service/service/CUserDetailService.java
