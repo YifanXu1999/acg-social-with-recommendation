@@ -23,14 +23,12 @@ Day 4:
 
 - [ ]  Global Exception Handler
 - [ ] Swagger
+- [ ] User Login and Signup
+- [ ] Setup Timescale DB and Data layer module
 
 # Planing 
 
-- [ ] Setup Timescale DB
-
 - [ ] DB Change Integration with Flyway
-
-- [ ] User Login and Signup
 
 - [ ] Frontend Homepage with login
 

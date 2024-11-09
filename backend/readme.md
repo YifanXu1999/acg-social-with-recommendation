@@ -15,12 +15,19 @@ Property
 
 Security
 
-- Permit access to "/actuator/**"
-- Authenticated by api key
+- Permit access to "/actuator/**", "/authenticate/**
+- Authenticated by JWT tokens
 
 Controller
 
-- post /login: authenticate user and return back JWT token
+-  /authenticate
+
+  - post /signin: authenticate user and return back JWT token
+
+  - post /signup: register user and return back JWT token
+
+    
+
 
 
 
