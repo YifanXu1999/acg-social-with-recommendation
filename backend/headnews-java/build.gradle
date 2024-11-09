@@ -106,6 +106,7 @@ project("headnews-services") {
             implementation project(":headnews-commons")
             implementation project(":headnews-utils")
             implementation project(":headnews-models")
+
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
             implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
@@ -117,6 +118,7 @@ project("headnews-services") {
             implementation 'io.jsonwebtoken:jjwt-impl'      // Specify version if not managed by BOM
             implementation 'io.jsonwebtoken:jjwt-jackson'
             implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springCloudStarterVersion}"
+            implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         }
     }
 
@@ -132,6 +134,7 @@ project("headnews-commons") {
         implementation 'org.springframework:spring-beans'
         implementation 'org.springframework:spring-context'
         implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+        implementation 'org.springframework.security:spring-security-core'
     }
 }
 

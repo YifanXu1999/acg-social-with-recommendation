@@ -1,12 +1,15 @@
 package com.yifan.common.exception;
 
-import com.yifan.common.enum_.AppHttpCodeEnum;
+import com.yifan.common.enums.AppHttpCodeEnum;
 import com.yifan.common.result.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.security.SignatureException;
 
 @ControllerAdvice
 @Component("customControllerAdvice")
@@ -19,13 +22,16 @@ public class ExceptionControllerAdvice {
     public ResponseResult exception(Exception e){
         e.printStackTrace();
         log.error("catch exception:{}",e.getMessage());
+        if (e instanceof BadCredentialsException) return ResponseResult.error(AppHttpCodeEnum.User_LOGIN_PASSWORD_ERROR);
         return ResponseResult.error(AppHttpCodeEnum.SERVER_ERROR);
     }
 
 
+
+
     @ExceptionHandler(CustomException.class)
     @ResponseBody
-    public ResponseResult exception(CustomException e){
+    public ResponseResult customException(CustomException e){
         log.error("catch exception:{}",e);
         return ResponseResult.error(e.getAppHttpCodeEnum());
     }

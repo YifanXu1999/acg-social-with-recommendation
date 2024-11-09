@@ -1,7 +1,7 @@
 package com.yifan.common.exception;
 
 
-import com.yifan.common.enum_.AppHttpCodeEnum;
+import com.yifan.common.enums.AppHttpCodeEnum;
 
 public class CustomException extends RuntimeException {
 
