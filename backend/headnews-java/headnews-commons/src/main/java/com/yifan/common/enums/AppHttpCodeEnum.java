@@ -24,9 +24,10 @@ public enum AppHttpCodeEnum {
     USER_DATA_NOT_EXIST(1001,"User Not Exist"),
     // Authroization =  3000~3500
     NO_OPERATOR_AUTH(3000,"Not Authorized"),
-    NEED_ADMIND(3001,"Required Admin"),
+    NEED_ADMIND(3001,"Required Admin");
 
     int code;
+
     String errorMessage;
 
     AppHttpCodeEnum(int code, String errorMessage){
