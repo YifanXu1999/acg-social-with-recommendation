@@ -58,6 +58,7 @@ subprojects {
             dependency "org.springframework.security:spring-security-oauth2-client:${Oauth2ClientVersion}"
             dependency "io.swagger.core.v3:swagger-core:${swaggerVersion}"
             dependency "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openApiVersion}"
+            dependency "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
         }
 
     }
@@ -134,6 +135,7 @@ project("headnews-utils") {
         implementation 'io.jsonwebtoken:jjwt-jackson'
         implementation 'org.springframework:spring-beans'
         implementation 'org.springframework.security:spring-security-core'
+        implementation 'org.springframework.boot:spring-boot-autoconfigure'
     }
 }
 

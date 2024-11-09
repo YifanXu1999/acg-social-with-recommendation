@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
  * Service class for handling JWT operations such as token generation, validation, and extraction of claims.
  */
 @Service
+@ConditionalOnProperty(name = "security.jwt.secret-key")
 public class JwtUtilService {
 
     @Value("${security.jwt.secret-key}")
