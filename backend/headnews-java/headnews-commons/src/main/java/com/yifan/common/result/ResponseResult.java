@@ -3,45 +3,68 @@ package com.yifan.common.result;
 import com.yifan.common.enum_.AppHttpCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * Generic class for wrapping API responses.
+ *
+ * @param <T> the type of the response data
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 public class ResponseResult<T> implements Serializable {
 
-
+    /**
+     * The HTTP response code.
+     */
     private Integer code;
 
-    private String errorMessage;
+    /**
+     * The message, if any.
+     */
+    private String message;
 
+    /**
+     * The response data.
+     */
     private T data;
 
-
-
-    private ResponseResult<T> ok(Integer code, T data, String msg) {
-        this.code = code;
-        this.data = data;
-        this.errorMessage = msg;
-        return this;
-    }
-
+    /**
+     * Creates a new ResponseResult with the given code and message.
+     *
+     * @param code the HTTP response code
+     * @param msg the error message
+     * @return a new ResponseResult instance
+     */
     public static ResponseResult<?> set(int code, String msg) {
         return new ResponseResult<>(code, msg, null);
     }
 
-
-    private static ResponseResult<?> set(AppHttpCodeEnum enums, Object data) {
+    /**
+     * Creates a successful ResponseResult with the given parameters.
+     *
+     * @param enums the AppHttpCodeEnum instance
+     * @param message the success message
+     * @param data the response data
+     * @return a new ResponseResult instance
+     */
+    private static ResponseResult<?> success(AppHttpCodeEnum enums, String message, Object data) {
         return new ResponseResult<>(
-                        enums.getCode(),
-                        enums.getMessage(),
-                        data
-                    );
+                enums.getCode(),
+                message,
+                data
+        );
     }
 
+    /**
+     * Creates a successful ResponseResult with the given data.
+     *
+     * @param data the response data
+     * @return a new ResponseResult instance
+     */
     public static ResponseResult<?> success(Object data) {
         return new ResponseResult<>(
                 AppHttpCodeEnum.SUCCESS.getCode(),
@@ -50,13 +73,17 @@ public class ResponseResult<T> implements Serializable {
         );
     }
 
-
-    public static ResponseResult<?> error(AppHttpCodeEnum enums){
+    /**
+     * Creates an error ResponseResult with the given AppHttpCodeEnum.
+     *
+     * @param enums the AppHttpCodeEnum instance
+     * @return a new ResponseResult instance
+     */
+    public static ResponseResult<?> error(AppHttpCodeEnum enums) {
         return new ResponseResult<>(
-                        enums.getCode(),
-                        enums.getMessage(),
-                null);
+                enums.getCode(),
+                enums.getMessage(),
+                null
+        );
     }
-
-
 }
