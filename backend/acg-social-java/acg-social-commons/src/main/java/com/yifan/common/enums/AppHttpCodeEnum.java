@@ -17,7 +17,7 @@ public enum AppHttpCodeEnum {
     // Access Controll = 400-499
     ACCESS_DENIED(403,"Access Denied"),
     NOT_FOUND(404,"404 Resource Not Found"),
-
+    METHOD_NOT_ALLOWED(415, "Request method, not supported"),
 
     // TOKEN = 50~100
     TOKEN_INVALID(50,"Invalid Token"),
