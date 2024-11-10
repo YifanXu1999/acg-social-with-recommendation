@@ -15,7 +15,7 @@ Property
 
 Security
 
-- Permit access to "/actuator/**", "/authenticate/**
+- Permit access to "/actuator/**", "/authenticate" 
 - Authenticated by JWT tokens
 
 Controller

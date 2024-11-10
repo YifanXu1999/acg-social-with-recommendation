@@ -1,9 +1,0 @@
-rootProject.name = 'headnews'
-include 'headnews-services'
-include 'headnews-services:headnews-user-service'
-include 'headnews-utils'
-include 'headnews-gateways'
-include 'headnews-gateways:headnews-user-gateway'
-include 'headnews-commons'
-include 'headnews-models'
-

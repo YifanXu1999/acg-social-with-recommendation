@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: user-service
+  #  profiles:
+  #    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/acg-social-cfg?serverTimezone=UTC-5
+    username: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_schema: public
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        enabled: true
+        service-name: ${spring.application.name}
+        health-check-path: /user/actuator/health
+        prefer-ip-address: true
+      config:
+        enabled: true
+        register: true
+        default-context: env
+        profile-separator: '-'
+        format: YAML
+        data-key: properties
+        prefixes: /config/user-service
+
+
+
+
+#dataMessage: "Hello from user-service"
+
+security:
+  jwt:
+    secret-key: sQwCpufC3O4dhwz3JzNpgtpKxH39JbbGZTZ3WlkY6YQ # "secrct": "user-service"
+    expiration-time: 86400000
+server:
+  servlet:
+    context-path: /user
+
+
+
+
+#logging:
+#  level:
+#    org.springframework: TRACE
