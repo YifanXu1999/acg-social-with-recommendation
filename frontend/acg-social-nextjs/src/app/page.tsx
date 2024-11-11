@@ -7,7 +7,7 @@ export default function Home() {
   return (
 
     <div>
-      <main className="container mx-auto p-4">
+      <main className="container mx-auto p-4 opacity-80">
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-sky-800">Welcome back, User!</h2>
         </div>

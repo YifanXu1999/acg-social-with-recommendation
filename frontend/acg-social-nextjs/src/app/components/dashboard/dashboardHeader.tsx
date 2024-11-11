@@ -1,17 +1,21 @@
-import { Bell, Heart, MessageCircle, Search, User } from "lucide-react"
+import { Bell, MessageCircle, Search, User } from "lucide-react"
 import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import  AcgSocialIcon from "@/app/assets/acg-social-icon.png"
-export default function Dashboard() {
+import  Icon from "@/app/assets/dashicon.png"
+export default function DashboardHeader() {
   return (
-    <div className="fixed w-full">
-      <header className="bg-gradient-to-r border rounded-sm from-purple-400 to-pink-300 py-1 shadow-md backdrop-blur">
+    <div className="static w-full opacity-70 h-12">
+      <header className="bg-gradient-to-r border rounded-sm from-pink-200 to-sky-200 py-1 shadow-md backdrop-blur">
         <div className=" flex flex-row items-center justify-between">
           <div className="flex items-center w-3/4">
-            <h1 className="text-xl font-bold text-purple-900 pl-1"> ACG Social</h1>
+            <div className=" h-10">
+              <Image src={Icon} alt="icon" width={120}
+               />
+            </div>
+
             <nav className=" flex ">
               <Button variant="ghost" className="text-purple-900 hover:bg-purple-400/30">
                 Home
