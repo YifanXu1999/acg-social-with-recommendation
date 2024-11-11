@@ -8,7 +8,7 @@ import  Icon from "@/app/assets/dashicon.png"
 export default function DashboardHeader() {
   return (
     <div className="static w-full opacity-70 h-12">
-      <header className="bg-gradient-to-r border rounded-sm from-pink-200 to-sky-200 py-1 shadow-md backdrop-blur">
+      <header className="bg-gradient-to-r border rounded-sm from-sky-200 to-pink-200 py-1 shadow-md backdrop-blur">
         <div className=" flex flex-row items-center justify-between">
           <div className="flex items-center w-3/4">
             <div className=" h-10">

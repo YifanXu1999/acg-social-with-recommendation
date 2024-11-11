@@ -26,6 +26,11 @@ Day 4:
 - [ ] User Login and Signup
 - [ ] Setup Timescale DB and Data layer module
 
+Day 5:
+
+- [ ] Frontend Dashboard Background  and Headers
+- [ ] Router Port Forwarding
+
 # Planing 
 
 - [ ] DB Change Integration with Flyway
