@@ -15,8 +15,9 @@ import {
   DropdownMenuLabel, DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 export default function DashboardHeader() {
-
+  const [ifAuthenticated, setAuthenticated] = useState(false)
   return (
     <div className="static w-full opacity-80 h-12">
       <header className="bg-gradient-to-r border rounded-sm from-sky-200 to-pink-200 py-1 shadow-md backdrop-blur">
@@ -58,7 +59,10 @@ export default function DashboardHeader() {
               <Button variant="ghost" size="icon" className="text-purple-900 hover:bg-purple-400/30">
                 <Bell className="h-5 w-5"/>
               </Button>
-              <UserDropdown />
+               <div className="pr-3">
+                 <UserDropdown ifAuthenticated={ifAuthenticated} />
+               </div>
+
 
             </div>
           </div>
@@ -70,28 +74,41 @@ export default function DashboardHeader() {
   )
 }
 
-const UserDropdown = () => {
+const UserDropdown = ({ ifAuthenticated }: { ifAuthenticated: boolean }) => {
   const [ifOpenUserDropDown, setOpenUserDropDown] = useState(false)
-  const dropdownItems = [
-    { id: '1', label: 'Option 1' },
-    { id: '2', label: 'Option 2' },
-    { id: '3', label: 'Option 3' },
+
+  const AuthenticatedDropdownItems = [
+    { id: '1', label: 'Profile', href: '/user/profile' },
+    { id: '2', label: 'Logout', href: '/user/logout' },
   ]
+  const UnAuthenticateddropdownItems = [
+    { id: '1', label: 'Login', href: '/user/login' },
+  ]
+
+  const dropdownItems = ifAuthenticated ? AuthenticatedDropdownItems : UnAuthenticateddropdownItems
+  const dropDownLabel = ifAuthenticated ? 'My Account' : 'System Setting'
   return (
     <div onMouseEnter={()=>setOpenUserDropDown(true)} onMouseLeave={()=>setOpenUserDropDown(false)}>
       <DropdownMenu open={ifOpenUserDropDown}>
         <DropdownMenuTrigger>
-          <Button variant="ghost" size="icon" className="text-purple-900 hover:bg-purple-400/30">
+          <div className=" p-1.5  rounded-sm ring-transparent text-purple-900 hover:bg-purple-400/30 ">
             <User className="h-5 w-5"/>
-          </Button>
+          </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuContent className="min-w-52  bg-purple-200">
+          <DropdownMenuLabel> {dropDownLabel} </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
+          {
+            dropdownItems.map((item) => {
+              return (
+                <Link href={item.href} key={item.id}>
+                  <DropdownMenuItem >
+                      {item.label}
+                  </DropdownMenuItem>
+                </Link>
+              )
+            })
+          }
         </DropdownMenuContent>
       </DropdownMenu>
 
