@@ -14,14 +14,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  auth
 }: Readonly<{
   children: React.ReactNode;
+  auth: React.ReactNode;
 }>) {
   return (
     <html lang="en">
         <body>
           <DashboardHeader/>
           <DashboardBackGround/>
+          <div>{auth}</div>
           {children}
         </body>
     </html>

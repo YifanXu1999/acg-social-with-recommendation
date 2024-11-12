@@ -4,7 +4,7 @@ import {Heart, MessageCircle, User} from "lucide-react";
 import DropDownList from "@/app/components/dropdown/dropDownList";
 import { HoverCard } from "@radix-ui/react-hover-card";
 import {HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
-import Login from "@/app/@auth/login/page";
+import Login from "@/app/@auth/(.)login/page";
 
 
 export default function Home() {
@@ -65,7 +65,7 @@ export default function Home() {
           </button>
 
       </div>
-      <Login />
+
 
     </div>
   );

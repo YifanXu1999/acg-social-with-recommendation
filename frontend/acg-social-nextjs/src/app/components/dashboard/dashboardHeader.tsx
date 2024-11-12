@@ -101,11 +101,14 @@ const UserDropdown = ({ ifAuthenticated }: { ifAuthenticated: boolean }) => {
           {
             dropdownItems.map((item) => {
               return (
-                <Link href={item.href} key={item.id}>
-                  <DropdownMenuItem >
+                <nav key={item.id}>
+                  <Link href={item.href} >
+                    <DropdownMenuItem >
                       {item.label}
-                  </DropdownMenuItem>
-                </Link>
+                    </DropdownMenuItem>
+                  </Link>
+                </nav>
+
               )
             })
           }
