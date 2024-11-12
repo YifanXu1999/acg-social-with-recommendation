@@ -31,12 +31,14 @@ Day 5:
 - [ ] Frontend Dashboard Background  and Headers
 - [ ] Router Port Forwarding
 
+Day 6:
+
+- [ ] Build User Login Page
+
 # Planing 
 
 - [ ] DB Change Integration with Flyway
 
-- [ ] Frontend Homepage with login
-
-- [ ] 
+- [ ] Set up Gateway Security for Acess Control
 
   
