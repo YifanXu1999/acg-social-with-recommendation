@@ -7,10 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class UserSignUpDto {
 
-    private String username;
+    private String email;
     private String password;
 
 }

@@ -24,19 +24,19 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
     /**
      * Loads the user details by username.
      *
-     * @param username the username of the user
+     * @param email the username of the user
      * @return UserDetails instance containing user information
      * @throws UsernameNotFoundException if the user is not found
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo userInfo = findUserInfoByUsername(username);
-        return new User(userInfo.getUsername(), userInfo.getPassword(), new ArrayList<>());
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserInfo userInfo = findUserInfoByUsername(email);
+        return new User(userInfo.getEmail(), userInfo.getPassword(), new ArrayList<>());
     }
 
-    private UserInfo findUserInfoByUsername(String username) {
+    private UserInfo findUserInfoByUsername(String email) {
         return userInfoRepo
-          .findByUsername(username)
+          .findByEmail(email)
           .orElseThrow(() ->
             new CustomException(AppHttpCodeEnum.User_NOT_EXIST)
           );

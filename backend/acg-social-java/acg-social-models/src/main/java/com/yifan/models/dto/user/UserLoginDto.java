@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserSignInDto {
+public class UserLoginDto {
 
-    private String username;
+    private String email;
     private String password;
 
 }

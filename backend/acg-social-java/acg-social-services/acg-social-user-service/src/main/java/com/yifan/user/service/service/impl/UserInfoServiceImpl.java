@@ -3,7 +3,7 @@ package com.yifan.user.service.service.impl;
 import com.yifan.common.enums.AppHttpCodeEnum;
 import com.yifan.common.exception.CustomException;
 import com.yifan.common.result.ResponseResult;
-import com.yifan.models.dto.user.UserSignInDto;
+import com.yifan.models.dto.user.UserLoginDto;
 import com.yifan.models.dto.user.UserSignUpDto;
 import com.yifan.models.pojo.user.UserInfo;
 import com.yifan.models.repo.UserInfoRepo;
@@ -39,14 +39,14 @@ public class UserInfoServiceImpl implements UserInfoService{
      * @return ResponseResult containing the JWT token if authentication is successful, or an error response
      */
     @Override
-    public ResponseResult signIn(UserSignInDto userSignInDto) {
+    public ResponseResult login(UserLoginDto userSignInDto) {
         // Find the user info by username
-        UserInfo userInfo = findUserInfoByUsername(userSignInDto.getUsername());
+        UserInfo userInfo = findUserInfoByEmail(userSignInDto.getEmail());
         // Authenticate the user
         Authentication authentication = authenticationManager
           .authenticate(
             new UsernamePasswordAuthenticationToken(
-              userSignInDto.getUsername(),
+              userSignInDto.getEmail(),
               userSignInDto.getPassword()
             )
           );
@@ -55,7 +55,7 @@ public class UserInfoServiceImpl implements UserInfoService{
          otherwise return an error response.
          */
         if(authentication.isAuthenticated()) {
-            String token = jwtUtil.generateToken(new User(userInfo.getUsername(), "", authentication.getAuthorities()));
+            String token = jwtUtil.generateToken(new User(userInfo.getEmail(), "", authentication.getAuthorities()));
             return ResponseResult.success(token);
         } else {
             return ResponseResult.error(AppHttpCodeEnum.User_LOGIN_PASSWORD_ERROR);
@@ -72,33 +72,33 @@ public class UserInfoServiceImpl implements UserInfoService{
     public ResponseResult signUp(UserSignUpDto userSignUpDto) {
 				// Check if the user already exists
 		    userInfoRepo
-			    .findByUsername(userSignUpDto.getUsername())
+			    .findByEmail(userSignUpDto.getEmail())
 			    .ifPresent(userInfo -> {
 		                throw new CustomException(AppHttpCodeEnum.User_EXIST);
                   });
         // Create a new user info object
         UserInfo userInfo = UserInfo
                                 .builder()
-                                .username(userSignUpDto.getUsername())
+                                .email(userSignUpDto.getEmail())
                                 .password(passwordEncoder.encode(userSignUpDto.getPassword()))
                                 .build();
         // Save the user info
         userInfoRepo.save(userInfo);
         // Generate and return the JWT token
-        String token = jwtUtil.generateToken(new User(userInfo.getUsername(), "", new ArrayList<>()));
+        String token = jwtUtil.generateToken(new User(userInfo.getEmail(), "", new ArrayList<>()));
         return ResponseResult.success(token);
     }
 
     /**
      * Finds the user information by username.
      *
-     * @param username the username of the user
+     * @param email the username of the user
      * @return UserInfo instance containing user information
      * @throws CustomException if the user is not found
      */
-    private UserInfo findUserInfoByUsername(String username) {
+    private UserInfo findUserInfoByEmail(String email) {
         return userInfoRepo
-		              .findByUsername(username)
+		              .findByEmail(email)
 		              .orElseThrow(() ->
 		                new CustomException(AppHttpCodeEnum.User_NOT_EXIST)
 		              );

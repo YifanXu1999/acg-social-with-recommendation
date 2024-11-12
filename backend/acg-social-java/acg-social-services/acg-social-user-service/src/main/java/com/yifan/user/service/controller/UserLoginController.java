@@ -1,7 +1,7 @@
 package com.yifan.user.service.controller;
 
 import com.yifan.common.result.ResponseResult;
-import com.yifan.models.dto.user.UserSignInDto;
+import com.yifan.models.dto.user.UserLoginDto;
 import com.yifan.models.dto.user.UserSignUpDto;
 import com.yifan.user.service.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,12 +21,12 @@ public class UserLoginController {
 
     private final UserInfoService userInfoService;
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     @Operation(summary = "User Sign In", description = "Authenticate user and return JWT token")
     public ResponseResult login(
       @Parameter(description = "User Sign In Data Transfer Object", required = true)
-      @RequestBody UserSignInDto loginDto) {
-        return userInfoService.signIn(loginDto);
+      @RequestBody UserLoginDto loginDto) {
+        return userInfoService.login(loginDto);
     }
 
     @PostMapping("/signup")
