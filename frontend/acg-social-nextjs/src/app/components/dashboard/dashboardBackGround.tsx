@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from "next/image";
-import Background from "@/app/assets/dashboard-background.png"
+import Background from "@/app/assets/dashboard-background-2.png"
 export default function DashboardBackGround() {
 
   return (
