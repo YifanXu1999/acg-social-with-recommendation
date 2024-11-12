@@ -20,7 +20,6 @@ export default  function Page() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const handleLogin = async  (e: React.FormEvent) => {
       e.preventDefault()
       console.log('Login attempted with:', { email, password })
