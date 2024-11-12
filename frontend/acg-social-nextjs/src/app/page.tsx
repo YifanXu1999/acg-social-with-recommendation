@@ -1,13 +1,23 @@
 import React from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Heart, MessageCircle, User} from "lucide-react";
+import DropDownList from "@/app/components/dropdown/dropDownList";
+import { HoverCard } from "@radix-ui/react-hover-card";
+import {HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
 
 
 export default function Home() {
+  const dropdownItems = [
+    { id: '1', label: 'Option 1' },
+    { id: '2', label: 'Option 2' },
+    { id: '3', label: 'Option 3' },
+  ]
+
+
   return (
 
-    <div>
-      <main className="container mx-auto p-4 opacity-80">
+    <div className="-z-10">
+      <div className="container mx-auto p-4 opacity-80">
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-sky-800">Welcome back, User!</h2>
         </div>
@@ -43,7 +53,21 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
-      </main>
+      </div>
+      {/*<DashboardLabel />*/}
+      <div className="group">
+        <button  type="button"
+                 className=" gap-0 justify-center rounded-md border border-gray-300 shadow-sm px-1 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                 id="options-menu"
+                 aria-expanded="true">
+            Dashboard
+          </button>
+
+      </div>
+
+
     </div>
   );
 }
+
+

@@ -1,13 +1,24 @@
+"use client";
 import { Bell, MessageCircle, Search, User } from "lucide-react"
 import Image from "next/image"
-
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import  AcgSocialIcon from "@/app/assets/acg-social-icon.png"
 import  Icon from "@/app/assets/dashicon.png"
+
+import React from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel, DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 export default function DashboardHeader() {
+
   return (
-    <div className="static w-full opacity-70 h-12">
+    <div className="static w-full opacity-80 h-12">
       <header className="bg-gradient-to-r border rounded-sm from-sky-200 to-pink-200 py-1 shadow-md backdrop-blur">
         <div className=" flex flex-row items-center justify-between">
           <div className="flex items-center w-3/4">
@@ -42,16 +53,13 @@ export default function DashboardHeader() {
                 <Search className="h-4 w-4"/>
               </Button>
             </div>
+
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="icon" className="text-purple-900 hover:bg-purple-400/30">
                 <Bell className="h-5 w-5"/>
               </Button>
-              <Button variant="ghost" size="icon" className="text-purple-900 hover:bg-purple-400/30">
-                <MessageCircle className="h-5 w-5"/>
-              </Button>
-              <Button variant="ghost" size="icon" className="text-purple-900 hover:bg-purple-400/30">
-                <User className="h-5 w-5"/>
-              </Button>
+              <UserDropdown />
+
             </div>
           </div>
 
@@ -59,5 +67,38 @@ export default function DashboardHeader() {
       </header>
 
     </div>
+  )
+}
+
+const UserDropdown = () => {
+  const [ifOpenUserDropDown, setOpenUserDropDown] = useState(false)
+  const dropdownItems = [
+    { id: '1', label: 'Option 1' },
+    { id: '2', label: 'Option 2' },
+    { id: '3', label: 'Option 3' },
+  ]
+  return (
+    <div onMouseEnter={()=>setOpenUserDropDown(true)} onMouseLeave={()=>setOpenUserDropDown(false)}>
+      <DropdownMenu open={ifOpenUserDropDown}>
+        <DropdownMenuTrigger>
+          <Button variant="ghost" size="icon" className="text-purple-900 hover:bg-purple-400/30">
+            <User className="h-5 w-5"/>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>Team</DropdownMenuItem>
+          <DropdownMenuItem>Subscription</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+    </div>
+
+
+
+
   )
 }
