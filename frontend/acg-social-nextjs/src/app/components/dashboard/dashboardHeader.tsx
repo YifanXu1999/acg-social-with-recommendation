@@ -1,5 +1,5 @@
 "use client";
-import { Bell, MessageCircle, Search, User } from "lucide-react"
+import { Bell, Search, User } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 export default function DashboardHeader() {
-  const [ifAuthenticated, setAuthenticated] = useState(false)
+  const ifAuthenticated = false
   return (
     <div className="static w-full opacity-70 h-12">
       <header className="bg-gradient-to-r border rounded-sm from-sky-200 to-sky-50 py-1 shadow-md backdrop-blur">

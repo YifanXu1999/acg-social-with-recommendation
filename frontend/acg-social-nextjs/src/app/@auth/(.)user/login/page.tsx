@@ -5,7 +5,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
@@ -13,18 +12,21 @@ import { useRouter } from 'next/navigation';
 
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import axios from "axios";
 
 
-export default function Page() {
+export default  function Page() {
 
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Login attempted with:', { email, password })
-    router.back()
+  const handleLogin = async  (e: React.FormEvent) => {
+      e.preventDefault()
+      console.log('Login attempted with:', { email, password })
+      const  response = await  axios.post('/api/user/login', { email, password })
+      console.log(response.data)
+      router.back()
 
   }
   return (

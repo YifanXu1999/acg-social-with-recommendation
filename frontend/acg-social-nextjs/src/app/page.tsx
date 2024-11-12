@@ -1,18 +1,11 @@
 import React from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Heart, MessageCircle, User} from "lucide-react";
-import DropDownList from "@/app/components/dropdown/dropDownList";
-import { HoverCard } from "@radix-ui/react-hover-card";
-import {HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
-import Login from "@/app/@auth/(.)login/page";
+
 
 
 export default function Home() {
-  const dropdownItems = [
-    { id: '1', label: 'Option 1' },
-    { id: '2', label: 'Option 2' },
-    { id: '3', label: 'Option 3' },
-  ]
+
 
 
   return (
