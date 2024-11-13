@@ -35,10 +35,16 @@ Day 6:
 
 - [ ] Build User Login Page
 
+Day 7:
+
+- [ ] Complete Login/Signup form with interceptor
+
 # Planing 
 
-- [ ] DB Change Integration with Flyway
+- [ ] Build blog posting page with rich text
 
-- [ ] Set up Gateway Security for Acess Control
+- [ ] Setup minio cluster for post storage
+
+- [ ] 
 
   
