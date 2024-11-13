@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import DashboardHeader from "@/app/components/dashboard/dashboardHeader";
+import DashboardHeader from "@/components/dashboard/dashboardHeader";
 import React from "react";
-import DashboardBackGround from "@/app/components/dashboard/dashboardBackGround";
+import DashboardBackGround from "@/components/dashboard/dashboardBackGround";
 
 
 export const metadata: Metadata = {

@@ -26,7 +26,6 @@ export async function POST(request: Request) {
 
   if(! r.success) {
     console.log(NextResponse.json({ errors: r.message }))
-    
     return NextResponse.json({ errors: r.message }, { status: 401 });
   }
   const  response =  NextResponse.json({
