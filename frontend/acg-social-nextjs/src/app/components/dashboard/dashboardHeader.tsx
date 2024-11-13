@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 export default function DashboardHeader() {
-  const ifAuthenticated = false
+  const ifAuthenticated = true
   return (
     <div className="static w-full opacity-70 h-12">
       <header className="bg-gradient-to-r border rounded-sm from-sky-200 to-sky-50 py-1 shadow-md backdrop-blur">
@@ -30,7 +30,7 @@ export default function DashboardHeader() {
 
             <nav className=" flex ">
               <Button variant="ghost" className="text-purple-900 hover:bg-purple-400/30">
-                Home
+                <Link href="/"> Home</Link>
               </Button>
               <Button variant="ghost" className="text-purple-900 hover:bg-purple-400/30">
                 Interest Groups
@@ -83,6 +83,7 @@ const UserDropdown = ({ ifAuthenticated }: { ifAuthenticated: boolean }) => {
   ]
   const UnAuthenticateddropdownItems = [
     { id: '1', label: 'Login', href: '/user/login' },
+
   ]
 
   const dropdownItems = ifAuthenticated ? AuthenticatedDropdownItems : UnAuthenticateddropdownItems

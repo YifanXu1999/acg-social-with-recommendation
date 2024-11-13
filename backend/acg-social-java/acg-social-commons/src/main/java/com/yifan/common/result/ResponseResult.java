@@ -31,16 +31,9 @@ public class ResponseResult implements Serializable {
      */
     private Object data;
 
-    /**
-     * Creates a new ResponseResult with the given code and message.
-     *
-     * @param code the HTTP response code
-     * @param msg the error message
-     * @return a new ResponseResult instance
-     */
-    public static ResponseResult set(int code, String msg) {
-        return new ResponseResult(code, msg, null);
-    }
+    private boolean success = true;;
+
+
 
     /**
      * Creates a successful ResponseResult with the given parameters.
@@ -54,7 +47,8 @@ public class ResponseResult implements Serializable {
         return new ResponseResult(
                 enums.getCode(),
                 message,
-                data
+                data,
+                true
         );
     }
 
@@ -68,7 +62,8 @@ public class ResponseResult implements Serializable {
         return new ResponseResult(
                 AppHttpCodeEnum.SUCCESS.getCode(),
                 AppHttpCodeEnum.SUCCESS.getMessage(),
-                data
+                data,
+                true
         );
     }
 
@@ -82,7 +77,8 @@ public class ResponseResult implements Serializable {
         return new ResponseResult(
                 enums.getCode(),
                 enums.getMessage(),
-                null
+                null,
+                false
         );
     }
 }
