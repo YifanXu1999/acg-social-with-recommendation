@@ -45,6 +45,12 @@ Day 7:
 
 - [ ] Setup minio cluster for post storage
 
-- [ ] 
+- [ ] Redis cluster for caching
+
+- [ ] Springboot Virtual Threads
+
+- [ ] RocketMQ for post and comments
+
+- [ ] Kafaka  for views
 
   
