@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-service
+    name:  blog-post-service
   #  profiles:
   #    active: dev
   datasource:
@@ -23,7 +23,7 @@ spring:
       discovery:
         enabled: true
         service-name: ${spring.application.name}
-        health-check-path: /user/actuator/health
+#        health-check-path: /user/actuator/health
         prefer-ip-address: true
       config:
         enabled: true
@@ -33,6 +33,15 @@ spring:
         format: YAML
         data-key: properties
         prefixes: /config/user-service
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 4GB
+      max-request-size: 4GB
+
+server:
+  servlet:
+    context-path: /blog
 
 
 
