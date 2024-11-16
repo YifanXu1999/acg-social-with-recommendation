@@ -1,10 +1,12 @@
 rootProject.name = 'acg-social'
 include 'acg-social-services'
 include 'acg-social-services:acg-social-user-service'
+include 'acg-social-services:acg-social-blog-post-service'
 include 'acg-social-utils'
 include 'acg-social-gateways'
 include 'acg-social-gateways:acg-social-user-gateway'
 include 'acg-social-commons'
 include 'acg-social-models'
 include 'acg-social-cache'
+
 
