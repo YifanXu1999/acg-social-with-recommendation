@@ -15,5 +15,8 @@ export const modules = {
     ['link', 'image', 'video'],
     ['clean'],
     ['code-block']
-  ]
+  ],
+  imageResize: {
+    modules: ["Resize", "DisplaySize"],
+  }
 };

@@ -7,6 +7,6 @@ include 'acg-social-gateways'
 include 'acg-social-gateways:acg-social-user-gateway'
 include 'acg-social-commons'
 include 'acg-social-models'
-include 'acg-social-cache'
+include 'acg-social-services:acg-social-file-management-service'
 
 

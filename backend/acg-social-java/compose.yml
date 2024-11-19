@@ -1,0 +1,97 @@
+services:
+  namesrv:
+    image: apache/rocketmq:5.3.1
+    container_name: rmqnamesrv
+    networks:
+      - rocketmq-net
+    ports:
+      - 9876:9876
+    command: sh mqnamesrv
+    
+  broker:
+    image: apache/rocketmq:5.3.1
+    container_name: rmqbroker
+    environment:
+      - NAMESRV_ADDR=namesrv:9876
+    depends_on:
+      - namesrv
+    networks:
+      - rocketmq-net
+    ports:
+      - 10909:10909
+      - 10911:10911
+      - 10912:10912
+    command: sh mqbroker
+
+
+  dashboard:
+    image: apacherocketmq/rocketmq-dashboard:latest
+    container_name: rocketmq-dashboard
+    environment:
+      - JAVA_OPTS=-Drocketmq.config.namesrvAddr=namesrv:9876
+    depends_on:
+      - broker
+    networks:
+      - rocketmq-net
+    ports:
+      - 8080:8080
+      
+
+  # Consul
+  consul:
+    image: consul:1.15.4
+    container_name: consul
+    ports:
+      - "8500:8500"
+      - "8600:8600/udp"
+    volumes:
+      - /Users/yifanxu/Docker/volumes/consul:/consul/data
+    command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
+    restart: unless-stopped
+
+  # TimescaleDB
+  timescaledb:
+    image: timescale/timescaledb-ha:pg16
+    container_name: timescaledb
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - /Users/yifanxu/Docker/volumes/timescale-db:/home/postgres/pgdata/data
+    user: root
+    restart: always
+
+  # Redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"  # Exposes Redis port
+    volumes:
+      - /Users/yifanxu/Docker/volumes/redis:/data  # Persists data in a volume
+    restart: always
+
+  # Minio
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"    # MinIO Web UI/API
+      - "9001:9001"    # MinIO Console (optional)
+    volumes:
+      - /Users/yifanxu/Docker/volumes/minio/data:/data    # Persistent storage
+      - /Users/yifanxu/Docker/volumes/minio/config:/root/.minio  # Configuration storage
+    environment:
+      - MINIO_ROOT_USER=adminadmin
+      - MINIO_ROOT_PASSWORD=adminadmin
+    command: server /data --console-address ":9001"
+    restart: always
+
+
+networks:
+  rocketmq-net:
+    driver: bridge
+    
+ 

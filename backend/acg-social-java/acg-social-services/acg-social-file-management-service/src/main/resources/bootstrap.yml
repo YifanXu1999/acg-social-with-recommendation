@@ -1,6 +1,6 @@
 spring:
   application:
-    name:  blog-post-service
+    name:  file-management-service
   #  profiles:
   #    active: dev
   datasource:
@@ -23,7 +23,7 @@ spring:
       discovery:
         enabled: true
         service-name: ${spring.application.name}
-#        health-check-path: /user/actuator/health
+        #        health-check-path: /user/actuator/health
         prefer-ip-address: true
       config:
         enabled: true
@@ -43,13 +43,13 @@ server:
   servlet:
     context-path: /blog
 
-  port: 8010
+  port: 8020
 
 
 rocketmq:
-  name-server: 127.0.0.1:8080   # Replace with your RocketMQ NameServer address
-  producer:
-    group: my-producer-group    # Producer group name
-    send-message-timeout: 50000
+  name-server: 127.0.0.1:9876   # Replace with your RocketMQ NameServer address
   consumer:
     group: my-consumer-group    # Consumer group name
+
+
+
