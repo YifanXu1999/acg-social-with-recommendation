@@ -1,4 +1,4 @@
-package com.yifan.blogpost.service.config;
+package com.yifan.blogpost.config;
 
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.context.annotation.Bean;

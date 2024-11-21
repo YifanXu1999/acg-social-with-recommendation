@@ -1,4 +1,4 @@
-package com.yifan.blogpost.service;
+package com.yifan.blogpost;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

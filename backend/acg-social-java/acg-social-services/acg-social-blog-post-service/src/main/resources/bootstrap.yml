@@ -53,3 +53,5 @@ rocketmq:
     send-message-timeout: 50000
   consumer:
     group: my-consumer-group    # Consumer group name
+file:
+  uploadDir:  /Users/yifanxu/Projects/acg-social-with-recommendation/backend/acg-social-java/tmp/uploads
