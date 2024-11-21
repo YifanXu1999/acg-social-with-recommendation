@@ -1,4 +1,4 @@
-package com.yifan.user.service.service.impl;
+package com.yifan.user.service.impl;
 
 import com.yifan.common.enums.AppHttpCodeEnum;
 import com.yifan.common.exception.CustomException;
@@ -7,7 +7,7 @@ import com.yifan.models.dto.user.UserLoginDto;
 import com.yifan.models.dto.user.UserSignUpDto;
 import com.yifan.models.pojo.user.UserInfo;
 import com.yifan.models.repo.UserInfoRepo;
-import com.yifan.user.service.service.UserInfoService;
+import com.yifan.user.service.UserInfoService;
 import com.yifan.utils.jwt.JwtUtilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

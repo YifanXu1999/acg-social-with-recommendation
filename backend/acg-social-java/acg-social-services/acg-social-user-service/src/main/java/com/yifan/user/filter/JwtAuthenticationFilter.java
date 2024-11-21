@@ -1,4 +1,4 @@
-package com.yifan.user.service.filter;
+package com.yifan.user.filter;
 
 import com.yifan.utils.jwt.JwtUtilService;
 import jakarta.servlet.FilterChain;

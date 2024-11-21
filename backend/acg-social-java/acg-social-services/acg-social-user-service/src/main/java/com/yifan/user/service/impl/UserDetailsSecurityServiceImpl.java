@@ -1,4 +1,4 @@
-package com.yifan.user.service.service.impl;
+package com.yifan.user.service.impl;
 
 import com.yifan.common.enums.AppHttpCodeEnum;
 import com.yifan.common.exception.CustomException;

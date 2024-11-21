@@ -1,4 +1,4 @@
-package com.yifan.user.service;
+package com.yifan.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

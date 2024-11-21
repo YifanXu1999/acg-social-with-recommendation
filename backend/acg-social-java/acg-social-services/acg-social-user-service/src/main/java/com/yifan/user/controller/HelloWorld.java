@@ -1,4 +1,4 @@
-package com.yifan.user.service.controller;
+package com.yifan.user.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

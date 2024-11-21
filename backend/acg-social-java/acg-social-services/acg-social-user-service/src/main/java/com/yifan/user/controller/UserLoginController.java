@@ -1,9 +1,9 @@
-package com.yifan.user.service.controller;
+package com.yifan.user.controller;
 
 import com.yifan.common.result.ResponseResult;
 import com.yifan.models.dto.user.UserLoginDto;
 import com.yifan.models.dto.user.UserSignUpDto;
-import com.yifan.user.service.service.UserInfoService;
+import com.yifan.user.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
