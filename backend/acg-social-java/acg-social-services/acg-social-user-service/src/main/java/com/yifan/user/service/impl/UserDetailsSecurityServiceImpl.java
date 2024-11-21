@@ -2,10 +2,9 @@ package com.yifan.user.service.impl;
 
 import com.yifan.common.enums.AppHttpCodeEnum;
 import com.yifan.common.exception.CustomException;
-import com.yifan.models.pojo.user.UserInfo;
+import com.yifan.models.pojo.user.User;
 import com.yifan.models.repo.UserInfoRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,11 +29,11 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserInfo userInfo = findUserInfoByUsername(email);
-        return new User(userInfo.getEmail(), userInfo.getPassword(), new ArrayList<>());
+        User userInfo = findUserInfoByUsername(email);
+        return new org.springframework.security.core.userdetails.User(userInfo.getEmail(), userInfo.getPassword(), new ArrayList<>());
     }
 
-    private UserInfo findUserInfoByUsername(String email) {
+    private User findUserInfoByUsername(String email) {
         return userInfoRepo
           .findByEmail(email)
           .orElseThrow(() ->

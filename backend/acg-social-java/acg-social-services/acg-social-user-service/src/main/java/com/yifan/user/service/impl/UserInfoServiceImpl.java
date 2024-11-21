@@ -5,7 +5,7 @@ import com.yifan.common.exception.CustomException;
 import com.yifan.common.result.ResponseResult;
 import com.yifan.models.dto.user.UserLoginDto;
 import com.yifan.models.dto.user.UserSignUpDto;
-import com.yifan.models.pojo.user.UserInfo;
+import com.yifan.models.pojo.user.User;
 import com.yifan.models.repo.UserInfoRepo;
 import com.yifan.user.service.UserInfoService;
 import com.yifan.utils.jwt.JwtUtilService;
@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,7 @@ public class UserInfoServiceImpl implements UserInfoService{
     @Override
     public ResponseResult login(UserLoginDto userSignInDto) {
         // Find the user info by username
-        UserInfo userInfo = findUserInfoByEmail(userSignInDto.getEmail());
+        User userInfo = findUserInfoByEmail(userSignInDto.getEmail());
         // Authenticate the user
         Authentication authentication = authenticationManager
           .authenticate(
@@ -55,7 +54,7 @@ public class UserInfoServiceImpl implements UserInfoService{
          otherwise return an error response.
          */
         if(authentication.isAuthenticated()) {
-            String token = jwtUtil.generateToken(new User(userInfo.getEmail(), "", authentication.getAuthorities()));
+            String token = jwtUtil.generateToken(new org.springframework.security.core.userdetails.User(userInfo.getEmail(), "", authentication.getAuthorities()));
             return ResponseResult.success(token);
         } else {
             return ResponseResult.error(AppHttpCodeEnum.User_LOGIN_PASSWORD_ERROR);
@@ -77,7 +76,7 @@ public class UserInfoServiceImpl implements UserInfoService{
 		                throw new CustomException(AppHttpCodeEnum.User_EXIST);
                   });
         // Create a new user info object
-        UserInfo userInfo = UserInfo
+        User userInfo = User
                                 .builder()
                                 .email(userSignUpDto.getEmail())
                                 .password(passwordEncoder.encode(userSignUpDto.getPassword()))
@@ -85,7 +84,7 @@ public class UserInfoServiceImpl implements UserInfoService{
         // Save the user info
         userInfoRepo.save(userInfo);
         // Generate and return the JWT token
-        String token = jwtUtil.generateToken(new User(userInfo.getEmail(), "", new ArrayList<>()));
+        String token = jwtUtil.generateToken(new org.springframework.security.core.userdetails.User(userInfo.getEmail(), "", new ArrayList<>()));
         return ResponseResult.success(token);
     }
 
@@ -96,7 +95,7 @@ public class UserInfoServiceImpl implements UserInfoService{
      * @return UserInfo instance containing user information
      * @throws CustomException if the user is not found
      */
-    private UserInfo findUserInfoByEmail(String email) {
+    private User findUserInfoByEmail(String email) {
         return userInfoRepo
 		              .findByEmail(email)
 		              .orElseThrow(() ->
