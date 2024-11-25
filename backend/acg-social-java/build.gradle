@@ -76,6 +76,7 @@ project("acg-social-models") {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.postgresql:postgresql'
+        implementation 'org.springframework.boot:spring-boot-autoconfigure'
     }
 }
 
@@ -163,6 +164,8 @@ project("acg-social-utils") {
         implementation 'org.springframework:spring-beans'
         implementation 'org.springframework.security:spring-security-core'
         implementation 'org.springframework.boot:spring-boot-autoconfigure'
+        implementation group: 'io.minio', name: 'minio', version: '8.5.13'
+        implementation group: 'org.springframework', name: 'spring-web', version: '6.2.0'
     }
 }
 
