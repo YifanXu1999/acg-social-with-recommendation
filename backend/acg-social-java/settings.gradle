@@ -1,7 +1,7 @@
 rootProject.name = 'acg-social'
 include 'acg-social-services'
 include 'acg-social-services:acg-social-user-service'
-include 'acg-social-services:acg-social-blog-post-service'
+include 'acg-social-services:acg-social-post-service'
 include 'acg-social-utils'
 include 'acg-social-gateways'
 include 'acg-social-gateways:acg-social-user-gateway'
