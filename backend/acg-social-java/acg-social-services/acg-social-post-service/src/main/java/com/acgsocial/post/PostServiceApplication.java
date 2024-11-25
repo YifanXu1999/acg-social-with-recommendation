@@ -1,4 +1,4 @@
-package com.acgsocial.file.service;
+package com.acgsocial.post;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableDiscoveryClient
 @ComponentScan(basePackages = "com.acgsocial")
 @EnableJpaRepositories("com.acgsocial.models")
-public class FileManagementApplication {
+public class PostServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FileManagementApplication.class, args);
+        SpringApplication.run(PostServiceApplication.class, args);
     }
 }

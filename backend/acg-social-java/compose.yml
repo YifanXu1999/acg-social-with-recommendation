@@ -45,7 +45,7 @@ services:
       - "8500:8500"
       - "8600:8600/udp"
     volumes:
-      - /Users/yifanxu/Docker/volumes/consul:/consul/data
+      - /Users/acgsocialxu/Docker/volumes/consul:/consul/data
     command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
     restart: unless-stopped
 
@@ -59,7 +59,7 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     volumes:
-      - /Users/yifanxu/Docker/volumes/timescale-db:/home/postgres/pgdata/data
+      - /Users/acgsocialxu/Docker/volumes/timescale-db:/home/postgres/pgdata/data
     user: root
     restart: always
 
@@ -70,7 +70,7 @@ services:
     ports:
       - "6379:6379"  # Exposes Redis port
     volumes:
-      - /Users/yifanxu/Docker/volumes/redis:/data  # Persists data in a volume
+      - /Users/acgsocialxu/Docker/volumes/redis:/data  # Persists data in a volume
     restart: always
 
   # Minio
@@ -81,8 +81,8 @@ services:
       - "9000:9000"    # MinIO Web UI/API
       - "9001:9001"    # MinIO Console (optional)
     volumes:
-      - /Users/yifanxu/Docker/volumes/minio/data:/data    # Persistent storage
-      - /Users/yifanxu/Docker/volumes/minio/config:/root/.minio  # Configuration storage
+      - /Users/acgsocialxu/Docker/volumes/minio/data:/data    # Persistent storage
+      - /Users/acgsocialxu/Docker/volumes/minio/config:/root/.minio  # Configuration storage
     environment:
       - MINIO_ROOT_USER=adminadmin
       - MINIO_ROOT_PASSWORD=adminadmin
