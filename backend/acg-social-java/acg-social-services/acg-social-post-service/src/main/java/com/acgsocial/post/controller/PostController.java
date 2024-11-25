@@ -1,6 +1,6 @@
 package com.acgsocial.post.controller;
 
-import com.acgsocial.post.service.FileService;
+import com.acgsocial.post.service.PostService;
 import com.acgsocial.common.result.ResponseResult;
 
 import lombok.AllArgsConstructor;
@@ -10,16 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/post")
 @AllArgsConstructor
-public class FileUploadController {
+public class PostController {
 
 
-    private FileService fileService;
+    private PostService fileService;
 
-    @PostMapping("/upload")
-    public ResponseResult upload(@RequestBody MultipartFile file) throws IOException {
-        return fileService.upload(file);
+    @PostMapping("/new")
+    public ResponseResult addNewPost(@RequestBody MultipartFile file) throws IOException {
+        return fileService.addNewPost(file);
     }
 
 

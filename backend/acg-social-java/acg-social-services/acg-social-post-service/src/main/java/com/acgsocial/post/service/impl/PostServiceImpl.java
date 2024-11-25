@@ -1,7 +1,9 @@
 package com.acgsocial.post.service.impl;
 
-import com.acgsocial.post.service.FileService;
+import com.acgsocial.post.service.PostService;
 import com.acgsocial.common.result.ResponseResult;
+import com.acgsocial.utils.minio.MinioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +13,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Service
-public class FileServiceImpl implements FileService {
+public class PostServiceImpl implements PostService {
+    private final MinioService minioService;
+
+    @Autowired
+    public PostServiceImpl(MinioService minioService) {
+        this.minioService = minioService;
+    }
+
     @Value("${file.upload-dir}")
     private String UPLOAD_DIR;
     @Override
@@ -33,6 +42,17 @@ public class FileServiceImpl implements FileService {
         // Save  the tmp file path to redis cache
         // Notify the MQ service to process the file
         return null;
+    }
+
+    @Override
+    public ResponseResult addNewPost(MultipartFile file) {
+        try {
+            minioService.uploadFile(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseResult.success(null);
+
     }
 
 }

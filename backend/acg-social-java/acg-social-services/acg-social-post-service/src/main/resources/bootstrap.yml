@@ -55,3 +55,10 @@ rocketmq:
     group: my-consumer-group    # Consumer group name
 file:
   uploadDir:  /Users/acgsocialxu/Projects/acg-social-with-recommendation/backend/acg-social-java/tmp/uploads
+
+
+minio:
+  endpoint: http://localhost:9000
+  access-key: 7hNwSjT9dO7DnDSsh1px
+  secret-key: y81MEkyuNQE9Pg7690fVI5vCAItZS7BlwlEOFStE
+  bucket-name: my-bucket

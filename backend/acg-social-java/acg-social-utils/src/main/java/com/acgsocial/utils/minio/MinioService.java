@@ -21,7 +21,7 @@ public class MinioService {
     }
 
 
-    public String uploadFile(MultipartFile file) throws MinioException {
+    public String uploadFile(MultipartFile file) throws Exception {
         return minioClient.uploadFile(file);
     }
 
