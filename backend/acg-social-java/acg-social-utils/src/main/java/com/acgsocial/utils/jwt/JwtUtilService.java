@@ -1,4 +1,4 @@
-package com.yifan.utils.jwt;
+package com.acgsocial.utils.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
