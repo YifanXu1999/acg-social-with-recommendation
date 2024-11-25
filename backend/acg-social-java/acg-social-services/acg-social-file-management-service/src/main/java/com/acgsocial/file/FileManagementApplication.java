@@ -1,4 +1,4 @@
-package com.acgsocial.file.service;
+package com.acgsocial.file;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
