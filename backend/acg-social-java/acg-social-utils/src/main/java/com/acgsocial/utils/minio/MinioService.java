@@ -1,5 +1,6 @@
 package com.acgsocial.utils.minio;
 
+import com.acgsocial.utils.minio.domain.FileMetaData;
 import io.minio.MinioClient;
 import io.minio.errors.MinioException;
 import io.minio.messages.Item;
@@ -21,7 +22,7 @@ public class MinioService {
     }
 
 
-    public String uploadFile(MultipartFile file) throws Exception {
+    public FileMetaData uploadFile(MultipartFile file) throws Exception {
         return minioClient.uploadFile(file);
     }
 

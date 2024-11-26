@@ -3,6 +3,9 @@ package com.acgsocial.post.service.impl;
 import com.acgsocial.post.service.PostService;
 import com.acgsocial.common.result.ResponseResult;
 import com.acgsocial.utils.minio.MinioService;
+import com.acgsocial.utils.minio.domain.FileMetaData;
+import jakarta.validation.constraints.Null;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class PostServiceImpl implements PostService {
     private final MinioService minioService;
 
@@ -21,33 +25,13 @@ public class PostServiceImpl implements PostService {
         this.minioService = minioService;
     }
 
-    @Value("${file.upload-dir}")
-    private String UPLOAD_DIR;
-    @Override
-    public ResponseResult upload(MultipartFile file) {
-        // Download the file to  UPLOAD_DIR
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
-        }
-        System.out.println("File uploaded: " + file.getOriginalFilename());
-        File destinationFile = new File(UPLOAD_DIR, Objects.requireNonNull(file.getOriginalFilename()));
-        // Save the file locally
-        try {
-            file.transferTo(destinationFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //Save the file info to database
-        // Save  the tmp file path to redis cache
-        // Notify the MQ service to process the file
-        return null;
-    }
 
     @Override
-    public ResponseResult addNewPost(MultipartFile file) {
+    public ResponseResult<Void> addNewPost(MultipartFile file) {
         try {
-            minioService.uploadFile(file);
+            FileMetaData fileMetaData = minioService.uploadFile(file);
+            log.info("File uploaded: " + fileMetaData);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

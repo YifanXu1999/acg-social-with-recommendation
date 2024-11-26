@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResponseResult implements Serializable {
+public class ResponseResult<T> implements Serializable {
 
     /**
      * The HTTP response code.
@@ -29,11 +29,9 @@ public class ResponseResult implements Serializable {
     /**
      * The response data.
      */
-    private Object data;
+    private T data;
 
-    private boolean success = true;;
-
-
+    private boolean success = true;
 
     /**
      * Creates a successful ResponseResult with the given parameters.
@@ -43,12 +41,12 @@ public class ResponseResult implements Serializable {
      * @param data the response data
      * @return a new ResponseResult instance
      */
-    private static ResponseResult success(AppHttpCodeEnum enums, String message, Object data) {
-        return new ResponseResult(
-                enums.getCode(),
-                message,
-                data,
-                true
+    public static <T> ResponseResult<T> success(AppHttpCodeEnum enums, String message, T data) {
+        return new ResponseResult<>(
+          enums.getCode(),
+          message,
+          data,
+          true
         );
     }
 
@@ -58,12 +56,12 @@ public class ResponseResult implements Serializable {
      * @param data the response data
      * @return a new ResponseResult instance
      */
-    public static ResponseResult success(Object data) {
-        return new ResponseResult(
-                AppHttpCodeEnum.SUCCESS.getCode(),
-                AppHttpCodeEnum.SUCCESS.getMessage(),
-                data,
-                true
+    public static <T> ResponseResult<T> success(T data) {
+        return new ResponseResult<>(
+          AppHttpCodeEnum.SUCCESS.getCode(),
+          AppHttpCodeEnum.SUCCESS.getMessage(),
+          data,
+          true
         );
     }
 
@@ -73,12 +71,12 @@ public class ResponseResult implements Serializable {
      * @param enums the AppHttpCodeEnum instance
      * @return a new ResponseResult instance
      */
-    public static ResponseResult error(AppHttpCodeEnum enums) {
-        return new ResponseResult(
-                enums.getCode(),
-                enums.getMessage(),
-                null,
-                false
+    public static <T> ResponseResult<T> error(AppHttpCodeEnum enums) {
+        return new ResponseResult<>(
+          enums.getCode(),
+          enums.getMessage(),
+          null,
+          false
         );
     }
 }

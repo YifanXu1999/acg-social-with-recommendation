@@ -1,9 +1,7 @@
 package com.acgsocial.utils.minio;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import com.acgsocial.utils.minio.domain.FileMetaData;
+import io.minio.*;
 import io.minio.errors.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
@@ -22,7 +20,7 @@ public class CustomMinioClient {
 
     }
 
-    public String uploadFile(MultipartFile file) throws MinioException {
+    public FileMetaData uploadFile(MultipartFile file) throws MinioException {
         try {
             InputStream fileStream = file.getInputStream();
             String fileName = file.getOriginalFilename();
@@ -30,13 +28,14 @@ public class CustomMinioClient {
                                     + "-"
                                     + java.util.UUID.randomUUID()
                                     +  fileName.substring(fileName.lastIndexOf('.')) ;
-            minioClient.putObject(PutObjectArgs
+           ObjectWriteResponse response =   minioClient.putObject(PutObjectArgs
                 .builder()
                 .bucket(bucketNames.get(0))
                 .object(fileName)
                 .stream(fileStream, file.getSize(), -1)
                 .build());
-            return fileName;
+            return  new FileMetaData(response.object(), response.region(), response.bucket(), file.getSize());
+
         } catch (Exception e) {
             throw new MinioException("Error uploading file", e.getMessage());
         }

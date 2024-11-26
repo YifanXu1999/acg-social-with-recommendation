@@ -18,7 +18,7 @@ public class PostController {
     private PostService fileService;
 
     @PostMapping("/new")
-    public ResponseResult addNewPost(@RequestBody MultipartFile file) throws IOException {
+    public ResponseResult<Void> addNewPost(@RequestBody MultipartFile file) throws IOException {
         return fileService.addNewPost(file);
     }
 

@@ -1,5 +1,6 @@
 package com.acgsocial.models.pojo.post;
 
+import com.acgsocial.models.pojo.MediaEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @Table(name = "post_cover")
 @Getter
 @Setter
-public class PostCover {
+public class PostCover extends MediaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -17,9 +18,6 @@ public class PostCover {
     @Column(name="cover_order", nullable = false)
     private Integer order;
 
-    @OneToOne
-    @JoinColumn(name = "file_id", nullable = false)
-    private PostFile file;
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
