@@ -1,5 +1,6 @@
 package com.acgsocial.post.service.impl;
 
+import com.acgsocial.post.filter.RequestScopedBean;
 import com.acgsocial.post.service.PostService;
 import com.acgsocial.common.result.ResponseResult;
 import com.acgsocial.utils.minio.MinioService;
@@ -19,10 +20,13 @@ import java.util.Objects;
 @Slf4j
 public class PostServiceImpl implements PostService {
     private final MinioService minioService;
+    private final RequestScopedBean requestScopedBean;
+
 
     @Autowired
-    public PostServiceImpl(MinioService minioService) {
+    public PostServiceImpl(MinioService minioService, RequestScopedBean requestScopedBean) {
         this.minioService = minioService;
+        this.requestScopedBean = requestScopedBean;
     }
 
 
@@ -31,6 +35,8 @@ public class PostServiceImpl implements PostService {
         try {
             FileMetaData fileMetaData = minioService.uploadFile(file);
             log.info("File uploaded: " + fileMetaData);
+            log.info(requestScopedBean.getRequestData().toString());
+
 
         } catch (Exception e) {
             e.printStackTrace();
