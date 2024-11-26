@@ -37,6 +37,7 @@ public class CustomMinioClient {
             return  new FileMetaData(response.object(), response.region(), response.bucket(), file.getSize());
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new MinioException("Error uploading file", e.getMessage());
         }
     }

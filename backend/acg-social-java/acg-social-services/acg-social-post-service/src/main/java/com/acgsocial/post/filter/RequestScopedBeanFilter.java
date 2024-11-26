@@ -1,6 +1,6 @@
 package com.acgsocial.post.filter;
 
-import com.acgsocial.post.domain.RequestData;
+import com.acgsocial.post.domain.records.RequestData;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;

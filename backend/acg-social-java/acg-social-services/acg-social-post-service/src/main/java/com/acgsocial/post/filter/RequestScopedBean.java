@@ -1,6 +1,6 @@
 package com.acgsocial.post.filter;
 
-import com.acgsocial.post.domain.RequestData;
+import com.acgsocial.post.domain.records.RequestData;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
