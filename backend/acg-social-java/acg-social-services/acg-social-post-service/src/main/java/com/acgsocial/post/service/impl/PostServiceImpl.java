@@ -52,30 +52,22 @@ public class PostServiceImpl implements PostService {
         // Join all the futures
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(
             Stream
-                .concat(uploadCoverFutures.stream(), Stream.of(uploadContentFuture))
+                .concat(Stream.of(uploadContentFuture), uploadCoverFutures.stream())
                 .toArray(CompletableFuture[]::new)
         );
 
 
 
         // Wait for minio uploads to be finished
-        try {
-            allFutures.get();
-        } catch (Exception e) {
-            log.error("Exception occurred during file upload", e);
-        }
-//        allFutures.exceptionally(ex -> {
-//            log.error("Exception occurred during file upload", ex);
-//            return null;
-//        }).thenRun(() -> {
-//            uploadCoverFutures.stream().map(CompletableFuture::join).forEach(fileMetaData -> {
-//                log.info("Uploaded file: {}", fileMetaData);
-//            });
-//            uploadContentFuture.thenAccept(fileMetaData -> {
-//                log.info("Uploaded file: {}", fileMetaData);
-//            });
-//
-//        });
+            allFutures.join();
+
+        uploadCoverFutures.stream().map(CompletableFuture::join).forEach(fileMetaData -> {
+            log.info("Uploaded file: {}", fileMetaData);
+        });
+
+        uploadContentFuture.thenAccept(fileMetaData -> {
+            log.info("Uploaded file: {}", fileMetaData);
+        });
 
         log.info("All files uploaded successfully");
         // Send message to mq
