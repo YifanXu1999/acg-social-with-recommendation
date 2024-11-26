@@ -138,6 +138,13 @@ project(":acg-social-services:acg-social-user-service") {
     }
 }
 
+project(":acg-social-services:acg-social-post-service") {
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'org.springframework.security:spring-security-web'  // Specify version if not managed by BOM
+    }
+}
+
 project("acg-social-commons") {
     bootJar {
         enabled = false
