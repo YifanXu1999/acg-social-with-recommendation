@@ -46,11 +46,11 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/authenticate/**", "/actuator/**").permitAll();
+                    authorize.requestMatchers("/authenticate/**", "/actuator/**", "/callback").permitAll();
                     authorize.anyRequest().authenticated();
-                }).httpBasic(Customizer.withDefaults());
+            }).httpBasic(Customizer.withDefaults()).oauth2Login(Customizer.withDefaults());
 
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

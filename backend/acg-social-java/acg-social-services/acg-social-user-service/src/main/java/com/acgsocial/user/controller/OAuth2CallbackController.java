@@ -4,25 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/hello")
 @Slf4j
-public class HelloWorld {
+public class OAuth2CallbackController {
 
-
-    @GetMapping
-    public String hello() {
-        System.out.println("Hello World");
-        return " Hesllo orl";
-    }
-
-    @GetMapping("/user")
+    @GetMapping("/callback")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
         log.info("User: {}", principal);
         return Collections.singletonMap("name", principal.getAttribute("name"));
