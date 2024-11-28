@@ -1,5 +1,6 @@
 package com.acgsocial.auth.config.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @EnableWebSecurity
 @Configuration
+@Slf4j
 public class SecurityConfig {
 
     private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
@@ -32,15 +34,16 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
           .authorizeHttpRequests((authorize) -> {
-              authorize.requestMatchers("/authenticate/**", "/actuator/**", "/auth/callback").permitAll();
+              authorize.requestMatchers("/authenticate/**", "/actuator/**", "/auth/callback", "/app/login", "/login" +
+                "/oauth2/code/github").permitAll();
               authorize.anyRequest().authenticated();
           });
 
         http.httpBasic(Customizer.withDefaults());
 
         http.oauth2Login(customizer -> {
-            customizer.successHandler(oauth2LoginSuccessHandler);
-        });
+              customizer.successHandler(oauth2LoginSuccessHandler);
+          });
 
         http.addFilterBefore(new UsernamePasswordAuthenticationFilter(), LogoutFilter.class);
 

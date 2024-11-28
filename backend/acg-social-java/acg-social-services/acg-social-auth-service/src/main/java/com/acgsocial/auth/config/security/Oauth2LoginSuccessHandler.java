@@ -21,7 +21,11 @@ public class Oauth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         String providerId = authentication.getName();
         String email = authenticationToken.getPrincipal().getAttribute("email");
         log.info("provider: {}, providerId: {}, email: {}", provider, providerId, email);
-        response.sendRedirect("/home");
 
+    }
+
+    public String print() {
+        log.info("Oauth2LoginSuccessHandler");
+        return "Oauth2LoginSuccessHandler";
     }
 }

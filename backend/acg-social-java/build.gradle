@@ -135,7 +135,7 @@ project(":acg-social-services:acg-social-user-service") {
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.security:spring-security-web'  // Specify version if not managed by BOM
         // https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
-        implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '6.4.1'
+        implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '6.3.1'
 
 
     }
@@ -146,7 +146,7 @@ project(":acg-social-services:acg-social-auth-service") {
         implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.security:spring-security-web'  // Specify version if not managed by BOM
         // https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
-        implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '6.4.1'
+        implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '6.3.1'
 
 
     }
