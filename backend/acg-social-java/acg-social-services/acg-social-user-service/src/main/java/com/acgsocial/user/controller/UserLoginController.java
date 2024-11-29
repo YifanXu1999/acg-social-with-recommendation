@@ -1,16 +1,14 @@
 package com.acgsocial.user.controller;
 
 import com.acgsocial.common.result.ResponseResult;
-import com.acgsocial.models.dto.user.UserLoginDto;
 import com.acgsocial.user.domain.dto.EmailLoginRequest;
-import com.acgsocial.user.domain.dto.EmailSignUpRequest;
-import com.acgsocial.user.domain.entity.User;
 import com.acgsocial.user.service.UserAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
