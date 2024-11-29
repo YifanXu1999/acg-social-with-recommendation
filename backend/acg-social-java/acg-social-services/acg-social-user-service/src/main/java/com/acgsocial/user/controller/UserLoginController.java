@@ -2,25 +2,24 @@ package com.acgsocial.user.controller;
 
 import com.acgsocial.common.result.ResponseResult;
 import com.acgsocial.models.dto.user.UserLoginDto;
-import com.acgsocial.models.dto.user.UserSignUpDto;
-import com.acgsocial.user.service.UserInfoService;
+import com.acgsocial.user.domain.dto.EmailSignUpRequest;
+import com.acgsocial.user.domain.entity.User;
+import com.acgsocial.user.service.UserAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import java.util.Collections;
-import java.util.Map;
 
+@Slf4j
 @RestController
-@RequestMapping("/authenticate")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @Tag(name = "User Authentication Controller", description = "Controller for user authentication operations")
 public class UserLoginController {
 
-    private final UserInfoService userInfoService;
+    private final UserAuthService userInfoService;
 
     @PostMapping("/login")
     @Operation(summary = "User Sign In", description = "Authenticate user and return JWT token")
@@ -34,8 +33,11 @@ public class UserLoginController {
     @Operation(summary = "User Sign Up", description = "Register a new user and return JWT token")
     public ResponseResult signup(
       @Parameter(description = "User Sign Up Data Transfer Object", required = true)
-      @RequestBody UserSignUpDto signUpDto) {
-        return userInfoService.signUp(signUpDto);
+      @RequestBody EmailSignUpRequest emailSignUpRequest) {
+        User user = userInfoService.signUp(emailSignUpRequest);
+        log.info("User signed up: {}", user);
+        // TODO Return JWT token
+        return ResponseResult.success(user);
     }
 
 

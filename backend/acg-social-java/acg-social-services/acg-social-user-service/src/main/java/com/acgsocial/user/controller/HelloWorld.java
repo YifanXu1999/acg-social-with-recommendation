@@ -22,9 +22,4 @@ public class HelloWorld {
         return " Hesllo orl";
     }
 
-    @GetMapping("/user")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        log.info("User: {}", principal);
-        return Collections.singletonMap("name", principal.getAttribute("name"));
-    }
 }

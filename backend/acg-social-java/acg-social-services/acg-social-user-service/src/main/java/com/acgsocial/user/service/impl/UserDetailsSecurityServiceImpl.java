@@ -2,7 +2,7 @@ package com.acgsocial.user.service.impl;
 
 import com.acgsocial.common.enums.AppHttpCodeEnum;
 import com.acgsocial.common.exception.CustomException;
-import com.acgsocial.models.pojo.user.User;
+import com.acgsocial.models.pojo.user.UserDelete;
 import com.acgsocial.models.repo.UserInfoRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsSecurityServiceImpl implements UserDetailsService {
-    private final UserInfoRepo userInfoRepo;
 
     /**
      * Loads the user details by username.
@@ -29,16 +28,12 @@ public class UserDetailsSecurityServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User userInfo = findUserInfoByUsername(email);
+        UserDelete userInfo = findUserInfoByUsername(email);
         return new org.springframework.security.core.userdetails.User(userInfo.getEmail(), userInfo.getPassword(), new ArrayList<>());
     }
 
-    private User findUserInfoByUsername(String email) {
-        return userInfoRepo
-          .findByEmail(email)
-          .orElseThrow(() ->
-            new CustomException(AppHttpCodeEnum.User_NOT_EXIST)
-          );
+    private UserDelete findUserInfoByUsername(String email) {
+        return null;
     }
 
 

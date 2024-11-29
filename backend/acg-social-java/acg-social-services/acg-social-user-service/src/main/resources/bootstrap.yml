@@ -40,7 +40,6 @@ spring:
           github:
             client-id: Iv23liBKnD6A2EUN1WOY
             client-secret: a2ffea98ae2917e7ced3b3f7e317592bdc6a7a5e
-            redirect-uri:  http://localhost:8080/callback
 
 #dataMessage: "Hello from user-service"
 
@@ -54,4 +53,6 @@ security:
 
 #logging:
 #  level:
+server:
+  port: 11025
 #    org.springframework: TRACE

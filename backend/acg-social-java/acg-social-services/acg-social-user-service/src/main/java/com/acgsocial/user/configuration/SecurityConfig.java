@@ -1,6 +1,7 @@
 package com.acgsocial.user.configuration;
 
 import com.acgsocial.user.filter.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,10 +18,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
+
 
     /**
      * Bean definition for PasswordEncoder.
@@ -46,9 +52,13 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/authenticate/**", "/actuator/**", "/callback").permitAll();
+                    authorize.requestMatchers("/auth/**", "/actuator/**", "/login/**").permitAll();
                     authorize.anyRequest().authenticated();
-            }).httpBasic(Customizer.withDefaults()).oauth2Login(Customizer.withDefaults());
+            }).httpBasic(Customizer.withDefaults());
+
+        http.oauth2Login(customizer -> {
+            customizer.successHandler(oauth2LoginSuccessHandler);
+        });
 
 //        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -1,7 +1,7 @@
 package com.acgsocial.models.pojo.post;
 
 import com.acgsocial.models.pojo.BaseEntity;
-import com.acgsocial.models.pojo.user.User;
+import com.acgsocial.models.pojo.user.UserDelete;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class Post extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserDelete user;
 
     @Column
     @NotBlank(message = "Title cannot be empty")
