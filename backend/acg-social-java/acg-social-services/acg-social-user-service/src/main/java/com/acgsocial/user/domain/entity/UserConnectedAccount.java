@@ -24,6 +24,6 @@ public class UserConnectedAccount extends BaseEntity {
     public UserConnectedAccount(AccountConnectRequest request) {
         this.provider = request.getProvider();
         this.providerId = request.getProviderId();
-        this.user = getUser();
+        this.user = request.getUser();
     }
 }

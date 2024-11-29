@@ -49,8 +49,8 @@ public class Oauth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         // If the oauth2 account is not connected to a registered account, register to the system.
         Oauth2SignUpRequest oauth2SignUpRequest = new Oauth2SignUpRequest();
         User user = new User(oauth2SignUpRequest);
-        UserConnectedAccount userConnectedAccount = new UserConnectedAccount(new AccountConnectRequest(provider, providerId, user));
         userRepo.save(user);
+        UserConnectedAccount userConnectedAccount = new UserConnectedAccount(new AccountConnectRequest(provider, providerId, user));
         connectedAccountRepo.save(userConnectedAccount);
         authenticateUser(user, response);
 
