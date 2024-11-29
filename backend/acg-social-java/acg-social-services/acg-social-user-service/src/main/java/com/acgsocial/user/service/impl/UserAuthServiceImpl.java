@@ -2,20 +2,24 @@ package com.acgsocial.user.service.impl;
 
 import com.acgsocial.common.enums.AppHttpCodeEnum;
 import com.acgsocial.common.exception.CustomException;
-import com.acgsocial.common.result.ResponseResult;
-import com.acgsocial.models.dto.user.UserLoginDto;
-import com.acgsocial.user.domain.dto.Oauth2AccountConnectRequest;
-import com.acgsocial.user.domain.dto.EmailSignUpRequest;
-import com.acgsocial.user.domain.dto.Oauth2AccountQueryRequest;
-import com.acgsocial.user.domain.dto.Oauth2SignUpRequest;
+import com.acgsocial.user.domain.dto.*;
 import com.acgsocial.user.domain.entity.UserConnectedAccount;
 import com.acgsocial.user.domain.vo.AuthTokenResponse;
 import com.acgsocial.user.repository.UserConnectedAccountRepo;
 import com.acgsocial.user.repository.UserRepo;
 import com.acgsocial.user.service.UserAuthService;
 import com.acgsocial.utils.jwt.JwtUtilService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.acgsocial.user.domain.entity.User;
 
@@ -24,46 +28,43 @@ import com.acgsocial.user.domain.entity.User;
  */
 @Service
 @RequiredArgsConstructor
-public class UserAuthServiceImpl implements UserAuthService {
+public class UserAuthServiceImpl implements UserAuthService, UserDetailsService {
 
     private final UserRepo userRepo;
     private final UserConnectedAccountRepo userConnectedAccountRepo;
-    private final AuthenticationManager authenticationManager;
     private final JwtUtilService jwtUtil;
     private final JwtUtilService jwtUtilService;
+    private final UserDetailServiceImpl userDetailService;
+
+    @Lazy
+    @Autowired
+    @Setter
+    private  AuthenticationManager authenticationManager;
 
 
-    /**
-     * Signs in a user with the provided credentials.
-     *
-     * @param userSignInDto the user sign-in data transfer object
-     * @return ResponseResult containing the JWT token if authentication is successful, or an error response
-     */
     @Override
-    public ResponseResult login(UserLoginDto userSignInDto) {
-//        // Find the user info by username
-//        UserDelete userInfo = findUserInfoByEmail(userSignInDto.getEmail());
-//        // Authenticate the user
-//        Authentication authentication = authenticationManager
-//          .authenticate(
-//            new UsernamePasswordAuthenticationToken(
-//              userSignInDto.getEmail(),
-//              userSignInDto.getPassword()
-//            )
-//          );
-//        /*
-//         If the user is authenticated, generate a JWT token,
-//         otherwise return an error response.
-//         */
-//        if(authentication.isAuthenticated()) {
-//            String token = jwtUtil.generateToken(new org.springframework.security.core.userdetails.User(userInfo.getEmail(), "", authentication.getAuthorities()));
-//            return ResponseResult.success(token);
-//        } else {
-//            return ResponseResult.error(AppHttpCodeEnum.User_LOGIN_PASSWORD_ERROR);
-//        }
-        return null;
+    public  AuthTokenResponse loginWithEmail(EmailLoginRequest emailLoginRequest) {
+        User user = loadUserByUsername(emailLoginRequest.getEmail());
+        Authentication authentication = authenticationManager
+          .authenticate(
+            new UsernamePasswordAuthenticationToken(
+                emailLoginRequest.getEmail(),
+                emailLoginRequest.getPassword()
+            )
+          );
+        if(authentication.isAuthenticated()) {
+            return generatenNewAuthToken(user);
+        } else {
+            throw new CustomException(AppHttpCodeEnum.User_LOGIN_PASSWORD_ERROR);
+        }
     }
 
+    @Override
+    public User loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepo
+          .findByEmail(email)
+          .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 
     @Override
     public User signUpWithOauth2(Oauth2SignUpRequest oauth2SignUpRequest) {
@@ -121,6 +122,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         String refreshToken = jwtUtilService.generateRefreshToken(user);
         return new AuthTokenResponse(accessToken, refreshToken);
     }
+
 
 
 }

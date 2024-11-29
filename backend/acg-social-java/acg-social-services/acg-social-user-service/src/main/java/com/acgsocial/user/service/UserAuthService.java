@@ -2,17 +2,15 @@ package com.acgsocial.user.service;
 
 import com.acgsocial.common.result.ResponseResult;
 import com.acgsocial.models.dto.user.UserLoginDto;
-import com.acgsocial.user.domain.dto.Oauth2AccountConnectRequest;
-import com.acgsocial.user.domain.dto.EmailSignUpRequest;
-import com.acgsocial.user.domain.dto.Oauth2AccountQueryRequest;
-import com.acgsocial.user.domain.dto.Oauth2SignUpRequest;
+import com.acgsocial.user.domain.dto.*;
 import com.acgsocial.user.domain.entity.User;
 import com.acgsocial.user.domain.entity.UserConnectedAccount;
 import com.acgsocial.user.domain.vo.AuthTokenResponse;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserAuthService {
+public interface UserAuthService{
 
-    ResponseResult login(UserLoginDto userSignInDto);
+    AuthTokenResponse loginWithEmail(EmailLoginRequest emailLoginRequest);
 
     User signUpWithEmail(EmailSignUpRequest emailSignUpRequest);
 

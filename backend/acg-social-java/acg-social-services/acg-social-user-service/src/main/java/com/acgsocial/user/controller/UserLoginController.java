@@ -2,6 +2,7 @@ package com.acgsocial.user.controller;
 
 import com.acgsocial.common.result.ResponseResult;
 import com.acgsocial.models.dto.user.UserLoginDto;
+import com.acgsocial.user.domain.dto.EmailLoginRequest;
 import com.acgsocial.user.domain.dto.EmailSignUpRequest;
 import com.acgsocial.user.domain.entity.User;
 import com.acgsocial.user.service.UserAuthService;
@@ -19,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "User Authentication Controller", description = "Controller for user authentication operations")
 public class UserLoginController {
 
-    private final UserAuthService userInfoService;
+    private final UserAuthService userAuthService;
 
     @PostMapping("/login")
     @Operation(summary = "User Sign In", description = "Authenticate user and return JWT token")
     public ResponseResult login(
       @Parameter(description = "User Sign In Data Transfer Object", required = true)
-      @RequestBody UserLoginDto loginDto) {
-        return userInfoService.login(loginDto);
+      @RequestBody EmailLoginRequest emailLoginRequest) {
+        return ResponseResult.success(userAuthService.loginWithEmail(emailLoginRequest));
     }
 
 
