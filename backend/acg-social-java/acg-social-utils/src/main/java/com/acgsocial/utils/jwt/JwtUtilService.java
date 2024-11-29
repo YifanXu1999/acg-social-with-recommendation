@@ -26,8 +26,11 @@ public class JwtUtilService {
     @Value("${security.jwt.secret-key}")
     private String secretKey;
 
-    @Value("${security.jwt.expiration-time}")
-    private long jwtExpiration;
+    @Value("${security.jwt.access-token-ttl}")
+    private long accessTokenExpiration;
+
+    @Value("${security.jwt.refresh-token-ttl}")
+    private long refreshTokenExpiration;
 
     /**
      * Extracts the username from the JWT token.
@@ -58,8 +61,12 @@ public class JwtUtilService {
      * @param userDetails the user details
      * @return the generated JWT token
      */
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateAccessToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails, accessTokenExpiration);
+    }
+
+    public String generateRefreshToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails, refreshTokenExpiration);
     }
 
     /**
@@ -69,18 +76,12 @@ public class JwtUtilService {
      * @param userDetails the user details
      * @return the generated JWT token
      */
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return buildToken(extraClaims, userDetails, jwtExpiration);
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails, Long expiration) {
+        return buildToken(extraClaims, userDetails, expiration);
     }
 
-    /**
-     * Retrieves the JWT expiration time.
-     *
-     * @return the JWT expiration time
-     */
-    public long getExpirationTime() {
-        return jwtExpiration;
-    }
+
+
 
     /**
      * Builds a JWT token with the specified claims, user details, and expiration time.
@@ -99,6 +100,7 @@ public class JwtUtilService {
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
+                .setSubject(userDetails.getAuthorities().toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)

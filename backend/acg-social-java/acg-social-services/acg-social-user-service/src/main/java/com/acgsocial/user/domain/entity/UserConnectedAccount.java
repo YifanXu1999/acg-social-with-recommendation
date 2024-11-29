@@ -1,6 +1,6 @@
 package com.acgsocial.user.domain.entity;
 
-import com.acgsocial.user.domain.dto.AccountConnectRequest;
+import com.acgsocial.user.domain.dto.Oauth2AccountConnectRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class UserConnectedAccount extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public UserConnectedAccount(AccountConnectRequest request) {
+    public UserConnectedAccount(Oauth2AccountConnectRequest request) {
         this.provider = request.getProvider();
         this.providerId = request.getProviderId();
         this.user = request.getUser();

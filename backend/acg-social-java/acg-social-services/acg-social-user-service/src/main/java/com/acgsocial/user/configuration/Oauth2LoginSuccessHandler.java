@@ -1,21 +1,24 @@
 package com.acgsocial.user.configuration;
 
-import com.acgsocial.user.domain.dto.AccountConnectRequest;
+import com.acgsocial.user.domain.dto.Oauth2AccountConnectRequest;
+import com.acgsocial.user.domain.dto.Oauth2AccountQueryRequest;
 import com.acgsocial.user.domain.dto.Oauth2SignUpRequest;
 import com.acgsocial.user.domain.entity.User;
 import com.acgsocial.user.domain.entity.UserConnectedAccount;
+import com.acgsocial.user.domain.vo.AuthTokenResponse;
 import com.acgsocial.user.repository.UserConnectedAccountRepo;
 import com.acgsocial.user.repository.UserRepo;
+import com.acgsocial.user.service.UserAuthService;
 import com.acgsocial.user.util.ApplicationContextProvider;
+import com.acgsocial.utils.json.JsonUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -30,6 +33,10 @@ public class Oauth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserConnectedAccountRepo connectedAccountRepo;
     private final UserRepo userRepo;
+
+    @Lazy
+    @Autowired
+    private  UserAuthService userAuthService;
     private final ApplicationContextProvider applicationContextProvider;
 
     @Override
@@ -40,19 +47,15 @@ public class Oauth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         String providerId = authentication.getName();
 
         // Check if the oauth2 account is already connected to a registered account.
-        Optional<UserConnectedAccount> connectedAccount = connectedAccountRepo.findByProviderAndProviderId(provider, providerId);
-        if (connectedAccount.isPresent()) {
+        UserConnectedAccount connectedAccount = userAuthService.findOauth2ConnectedAccount(new Oauth2AccountQueryRequest(provider, providerId));
+        if (connectedAccount != null) {
             log.info("User already connected with provider {} and providerId {}", provider, providerId);
-            authenticateUser(connectedAccount.get().getUser(), response);
+            authenticateUser(connectedAccount.getUser(), response);
             return;
         }
 
         // If the oauth2 account is not connected to a registered account, register to the system.
-        Oauth2SignUpRequest oauth2SignUpRequest = new Oauth2SignUpRequest();
-        User user = new User(oauth2SignUpRequest);
-        userRepo.save(user);
-        UserConnectedAccount userConnectedAccount = new UserConnectedAccount(new AccountConnectRequest(provider, providerId, user));
-        connectedAccountRepo.save(userConnectedAccount);
+        User user = userAuthService.signUpWithOauth2(new Oauth2SignUpRequest(provider, providerId));
         authenticateUser(user, response);
 
     }
@@ -60,9 +63,10 @@ public class Oauth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 
     private void authenticateUser(User user, HttpServletResponse response) throws IOException {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-        log.info("User {} has been authenticated", token);
-        SecurityContextHolder.getContext().setAuthentication(token);
+        AuthTokenResponse authTokenResponse = userAuthService.generatenNewAuthToken(user);
+        response.setContentType("application/json");
+        response.getWriter().write(JsonUtil.stringify(authTokenResponse));
+
     }
 
 }

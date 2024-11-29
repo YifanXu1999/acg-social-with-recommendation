@@ -60,6 +60,7 @@ public class SecurityConfig {
             }).httpBasic(Customizer.withDefaults());
 
         http.oauth2Login(customizer -> {
+
             customizer.successHandler(oauth2LoginSuccessHandler);
         });
 

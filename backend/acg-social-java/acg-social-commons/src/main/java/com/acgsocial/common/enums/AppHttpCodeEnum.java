@@ -9,10 +9,11 @@ public enum AppHttpCodeEnum {
     // Success Code = 200
     SUCCESS(200,"Success"),
     // Login Code = 1~50
-    User_LOGIN_Required(1,"Login Required"),
+    User_LOGIN_Required(403,"Login Required"),
     User_LOGIN_PASSWORD_ERROR(2,"Login Password Error"),
     User_NOT_EXIST(3,"User Not Exist"),
     User_EXIST(4,"User Already Created"),
+    User_ACCOUNT_ALREADY_CONNECTED(5,"User Account Already Connected"),
 
     // Access Controll = 400-499
     ACCESS_DENIED(403,"Access Denied"),

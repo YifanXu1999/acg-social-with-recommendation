@@ -29,16 +29,6 @@ public class UserLoginController {
         return userInfoService.login(loginDto);
     }
 
-    @PostMapping("/signup")
-    @Operation(summary = "User Sign Up", description = "Register a new user and return JWT token")
-    public ResponseResult signup(
-      @Parameter(description = "User Sign Up Data Transfer Object", required = true)
-      @RequestBody EmailSignUpRequest emailSignUpRequest) {
-        User user = userInfoService.signUp(emailSignUpRequest);
-        log.info("User signed up: {}", user);
-        // TODO Return JWT token
-        return ResponseResult.success(user);
-    }
 
 
 }

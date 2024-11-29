@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserConnectedAccountRepo extends JpaRepository<UserConnectedAccount, Long> {
     Optional<UserConnectedAccount> findByProviderAndProviderId(String provider, String providerId);
+
 }
