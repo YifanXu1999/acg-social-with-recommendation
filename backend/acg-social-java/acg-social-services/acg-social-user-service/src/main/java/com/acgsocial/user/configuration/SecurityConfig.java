@@ -55,7 +55,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/auth/**", "/actuator/**", "/oauth2/**", "/login/**").permitAll();
+                    authorize.requestMatchers("/auth/**", "/actuator/**", "/oauth2/**", "/login/**", "/favicon**").permitAll();
                     authorize.anyRequest().authenticated();
             }).httpBasic(Customizer.withDefaults());
 
@@ -63,10 +63,11 @@ public class SecurityConfig {
             customizer.successHandler(oauth2LoginSuccessHandler);
         });
 
+
         http.exceptionHandling(customizer -> {
             customizer.authenticationEntryPoint(
               (request, response, authException) -> {
-                  log.error("Unauthorized request", authException);
+                  log.error("Unauthorized request to path: " + request.getContextPath() + authException);
                   response.sendError(401, "Unauthorized");
               });
         });

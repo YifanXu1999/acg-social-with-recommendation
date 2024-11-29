@@ -23,7 +23,7 @@ spring:
       discovery:
         enabled: true
         service-name: ${spring.application.name}
-        health-check-path: /user/actuator/health
+        health-check-path: /actuator/health
         prefer-ip-address: true
       config:
         enabled: true
