@@ -1,7 +1,9 @@
 package com.acgsocial.user.configuration;
 
 import com.acgsocial.user.filter.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -52,13 +55,23 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/auth/**", "/actuator/**", "/login/**").permitAll();
+                    authorize.requestMatchers("/auth/**", "/actuator/**", "/oauth2/**", "/login/**").permitAll();
                     authorize.anyRequest().authenticated();
             }).httpBasic(Customizer.withDefaults());
 
         http.oauth2Login(customizer -> {
             customizer.successHandler(oauth2LoginSuccessHandler);
         });
+
+        http.exceptionHandling(customizer -> {
+            customizer.authenticationEntryPoint(
+              (request, response, authException) -> {
+                  log.error("Unauthorized request", authException);
+                  response.sendError(401, "Unauthorized");
+              });
+        });
+
+
 
 //        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

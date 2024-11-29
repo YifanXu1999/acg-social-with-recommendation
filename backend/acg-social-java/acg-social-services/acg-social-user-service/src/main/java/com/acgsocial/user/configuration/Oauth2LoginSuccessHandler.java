@@ -42,6 +42,7 @@ public class Oauth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         // Check if the oauth2 account is already connected to a registered account.
         Optional<UserConnectedAccount> connectedAccount = connectedAccountRepo.findByProviderAndProviderId(provider, providerId);
         if (connectedAccount.isPresent()) {
+            log.info("User already connected with provider {} and providerId {}", provider, providerId);
             authenticateUser(connectedAccount.get().getUser(), response);
             return;
         }
