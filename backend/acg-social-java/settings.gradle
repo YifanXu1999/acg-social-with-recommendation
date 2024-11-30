@@ -8,6 +8,6 @@ include 'acg-social-gateways:acg-social-user-gateway'
 include 'acg-social-commons'
 include 'acg-social-models'
 include 'acg-social-services:acg-social-file-management-service'
-include 'acg-social-services:acg-social-auth-service'
-findProject(':acg-social-services:acg-social-auth-service')?.name = 'acg-social-auth-service'
+include 'acg-social-bff'
+include 'acg-social-bff:acg-social-auth-server'
 

@@ -144,16 +144,7 @@ project(":acg-social-services:acg-social-user-service") {
     }
 }
 
-project(":acg-social-services:acg-social-auth-service") {
-    dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-security'
-        implementation 'org.springframework.security:spring-security-web'  // Specify version if not managed by BOM
-        // https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
-        implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '6.3.1'
 
-
-    }
-}
 
 project(":acg-social-services:acg-social-post-service") {
     dependencies {
@@ -162,6 +153,34 @@ project(":acg-social-services:acg-social-post-service") {
     }
 }
 
+project(":acg-social-bff:acg-social-auth-server") {
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
+        implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
+        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'io.jsonwebtoken:jjwt-api'       // Specify version if not managed by BOM
+        implementation 'io.jsonwebtoken:jjwt-impl'      // Specify version if not managed by BOM
+        implementation 'io.jsonwebtoken:jjwt-jackson'
+        implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${springCloudStarterVersion}"
+        implementation "io.swagger.core.v3:swagger-core"
+        implementation 'com.fasterxml.jackson.core:jackson-core:2.14.2'
+        implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.2'
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server', version: '3.3.0'
+        testCompileOnly('org.springframework.boot:spring-boot-starter-test')
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.11.2'
+
+
+    }
+}
+
+project("acg-social-bff") {
+    bootJar {
+        enabled = false
+    }
+}
 project("acg-social-commons") {
     bootJar {
         enabled = false
@@ -205,5 +224,6 @@ java {
 
 tasks.named('test') {
     useJUnitPlatform()
+    include '**'
 }
 
