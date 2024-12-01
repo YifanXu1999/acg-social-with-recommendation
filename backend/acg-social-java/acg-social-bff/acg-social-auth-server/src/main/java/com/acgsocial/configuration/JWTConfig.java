@@ -1,7 +1,6 @@
 package com.acgsocial.configuration;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -10,7 +9,7 @@ import org.springframework.web.client.RestOperations;
 import java.time.Duration;
 
 @Configuration
-public class JWTConfiguration {
+public class JWTConfig {
 
     public JwtDecoder jwtDecoder(RestTemplateBuilder builder) {
         RestOperations rest = builder
