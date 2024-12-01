@@ -1,8 +1,9 @@
 package com.acgsocial.user.util.oauth2.google;
 
-import com.acgsocial.user.domain.dto.Oauth2LoginRequest;
 import com.acgsocial.user.domain.vo.Oauth2AccountDetailResponse;
 import com.acgsocial.user.domain.enums.Oauth2ProviderEnum;
+import com.acgsocial.user.property.OAuth2Properties;
+import com.acgsocial.user.property.OAuth2Properties.ClientProperties;
 import com.acgsocial.user.util.oauth2.Oauth2Handler;
 import org.springframework.stereotype.Component;
 

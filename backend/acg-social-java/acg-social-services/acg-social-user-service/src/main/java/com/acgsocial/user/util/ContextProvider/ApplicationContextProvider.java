@@ -1,4 +1,4 @@
-package com.acgsocial.user.util;
+package com.acgsocial.user.util.ContextProvider;
 
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;

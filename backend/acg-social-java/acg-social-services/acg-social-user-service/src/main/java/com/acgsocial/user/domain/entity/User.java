@@ -3,7 +3,7 @@ package com.acgsocial.user.domain.entity;
 import com.acgsocial.user.domain.dto.EmailSignUpRequest;
 import com.acgsocial.user.domain.dto.Oauth2SignUpRequest;
 import com.acgsocial.user.domain.enums.Role;
-import com.acgsocial.user.util.ApplicationContextProvider;
+import com.acgsocial.user.util.ContextProvider.ApplicationContextProvider;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 @Entity

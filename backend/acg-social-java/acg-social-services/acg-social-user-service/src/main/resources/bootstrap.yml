@@ -43,6 +43,17 @@ security:
     secret-key: sQwCpufC3O4dhwz3JzNpgtpKxH39JbbGZTZ3WlkY6YQ # "secrct": "user-service"
     access-token-ttl: 8640000
     refresh-token-ttl: 86400000
+  oauth2:
+    github:
+      client-id: your-github-client-id
+      client-secret: your-github-client-secret
+      access-token-uri: https://github.com/login/oauth/access_token
+      user-detail-uri: https://api.github.com/user
+    google:
+      client-id: your-google-client-id
+      client-secret: your-google-client-secret
+      access-token-uri: https://oauth2.googleapis.com/token
+      user-detail-uri: https://openidconnect.googleapis.com/v1/userinfo
 
 
 

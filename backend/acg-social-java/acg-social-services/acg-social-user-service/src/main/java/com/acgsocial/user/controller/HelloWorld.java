@@ -19,20 +19,13 @@ public class HelloWorld {
 
 
     @GetMapping("/a")
-    @PreAuthorize("isAnonymous()")
     public String hello(Authentication authentication) {
         log.info("Authentication: {}", authentication);
         System.out.println("Hello World");
         return " Hesllo orl";
     }
 
-    @GetMapping("/b")
-    @PreAuthorize("isAuthenticated()")
-    public String hello2(Authentication authentication) {
-        log.info("Authentication: {}", authentication);
-        System.out.println("Hello World");
-        return " Hesllo orl";
-    }
+
 
 
 
