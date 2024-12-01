@@ -28,8 +28,7 @@ public class SecurityConfig {
     @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private final Oauth2LoginSuccessHandler oauth2LoginSuccessHandler;
+
 
 
     /**
@@ -54,17 +53,13 @@ public class SecurityConfig {
      */
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/auth/**", "/actuator/**", "/oauth2/**", "/login/**", "/favicon**", "/hello/**").permitAll();
-                    authorize.anyRequest().authenticated();
-            }).httpBasic(Customizer.withDefaults());
+        http.csrf(csrf -> csrf.disable() ).authorizeHttpRequests(customizer -> {
+            customizer.anyRequest().permitAll();
+        });
 
         http.anonymous(Customizer.withDefaults());
 
-        http.oauth2Login(customizer -> {
-            customizer.successHandler(oauth2LoginSuccessHandler);
-        });
+
 
 
         http.exceptionHandling(customizer -> {

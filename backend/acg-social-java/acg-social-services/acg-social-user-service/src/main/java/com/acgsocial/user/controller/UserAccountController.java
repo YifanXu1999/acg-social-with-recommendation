@@ -2,6 +2,8 @@ package com.acgsocial.user.controller;
 
 import com.acgsocial.common.result.ResponseResult;
 import com.acgsocial.user.domain.dto.EmailLoginRequest;
+import com.acgsocial.user.domain.dto.Oauth2LoginRequest;
+import com.acgsocial.user.domain.vo.AuthTokenResponse;
 import com.acgsocial.user.service.UserAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,19 +15,30 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/account")
 @RequiredArgsConstructor
 @Tag(name = "User Authentication Controller", description = "Controller for user authentication operations")
-public class UserLoginController {
+public class UserAccountController {
 
     private final UserAuthService userAuthService;
 
-    @PostMapping("/login")
+    @PostMapping("/email/login")
     @Operation(summary = "User Sign In", description = "Authenticate user and return JWT token")
-    public ResponseResult login(
+    public ResponseResult<AuthTokenResponse> login(
       @Parameter(description = "User Sign In Data Transfer Object", required = true)
       @RequestBody EmailLoginRequest emailLoginRequest) {
         return ResponseResult.success(userAuthService.loginWithEmail(emailLoginRequest));
+    }
+
+    @PostMapping("/oauth2/login")
+    public ResponseResult<AuthTokenResponse> login(@RequestBody Oauth2LoginRequest oauth2LoginRequest) {
+        log.info("Oauth2 Login Request: {}", oauth2LoginRequest);
+        return ResponseResult.success(userAuthService.loginWithOauth2(oauth2LoginRequest));
+    }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World";
     }
 
 

@@ -21,4 +21,6 @@ public interface UserAuthService{
 
 
     AuthTokenResponse generatenNewAuthToken(User user);
+
+    AuthTokenResponse loginWithOauth2(Oauth2LoginRequest oauth2LoginRequest);
 }

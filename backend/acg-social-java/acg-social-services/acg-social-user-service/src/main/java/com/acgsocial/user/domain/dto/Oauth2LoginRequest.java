@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Oauth2AccountQueryRequest {
+public class Oauth2LoginRequest {
     private Oauth2ProviderEnum provider;
-    private Long providerId;
+    private String code;
 }

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 })
 public class UserConnectedAccount extends BaseEntity {
     private String provider;
-    private String providerId;
+    private Long providerId;
     private LocalDateTime connectedAt;
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -1,15 +1,14 @@
 package com.acgsocial.user.domain.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@AllArgsConstructor
+@Builder
 @Getter
 @ToString
 public class Oauth2SignUpRequest {
     private String provider;
-    private String providerId;
+    private Long providerId;
+    private String email;
+    private String avatarUrl;
 }

@@ -1,0 +1,11 @@
+title Oauth2 Linking Work Flow
+
+User->Frontend:Click Oauth2 Linking
+Frontend->Oauth2 Provider: Send authorize request
+Oauth2 Provider-->User: Prompt enter credential
+User->Oauth2 Provider: Enter Credential
+Oauth2 Provider-->Frontend:Redirect with oauth code
+Frontend->AuthServer:Send oauth code for authentication
+AuthServer-->AuthServer: Check if user is under logged-in session
+AuthServer-->Oauth2 Provider: Retrieve access token request and user information
+AuthServer-->AuthServer: Link the oauth2 account to the user

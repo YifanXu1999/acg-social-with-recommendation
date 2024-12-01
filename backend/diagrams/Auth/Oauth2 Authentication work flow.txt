@@ -1,0 +1,10 @@
+title Oauth2 Login Work Flow
+
+User->Frontend:Click Oauth2 sign in
+Frontend->Oauth2 Provider: Send authorize request
+Oauth2 Provider-->User: Prompt enter credential
+User->Oauth2 Provider: Enter Credential
+Oauth2 Provider-->Frontend:Redirect with oauth code
+Frontend->AuthServer:Send oauth code for authentication
+AuthServer-->Oauth2 Provider: Retrieve access token request and user information
+AuthServer-->User: Return jwt token

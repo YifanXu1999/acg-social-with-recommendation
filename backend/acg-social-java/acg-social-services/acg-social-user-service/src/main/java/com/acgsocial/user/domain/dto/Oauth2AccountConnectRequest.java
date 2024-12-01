@@ -8,6 +8,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Oauth2AccountConnectRequest {
     private String provider;
-    private String providerId;
+    private Long providerId;
     private User user;
 }

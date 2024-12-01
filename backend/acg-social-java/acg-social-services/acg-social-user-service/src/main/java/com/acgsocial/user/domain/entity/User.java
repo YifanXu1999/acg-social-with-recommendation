@@ -57,6 +57,7 @@ public class User extends BaseEntity implements UserDetails {
 
     public User(Oauth2SignUpRequest signUpRequest) {
         this();
+        this.email = signUpRequest.getEmail();
     }
 
 

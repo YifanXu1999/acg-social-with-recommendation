@@ -33,13 +33,8 @@ spring:
         format: YAML
         data-key: properties
         prefixes: /config/user-service
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: Iv23liBKnD6A2EUN1WOY
-            client-secret: a2ffea98ae2917e7ced3b3f7e317592bdc6a7a5e
+
+
 
 #dataMessage: "Hello from user-service"
 
