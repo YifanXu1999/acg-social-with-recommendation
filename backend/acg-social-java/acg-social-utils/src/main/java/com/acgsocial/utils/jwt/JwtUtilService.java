@@ -55,64 +55,32 @@ public class JwtUtilService {
         return claimsResolver.apply(claims);
     }
 
-    /**
-     * Generates a JWT token for the given user details.
-     *
-     * @param userDetails the user details
-     * @return the generated JWT token
-     */
-    public String generateAccessToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails, accessTokenExpiration);
+
+    public String generateAccessToken(Map<String, Object> claims, String subject) {
+        return generateToken(claims, subject, accessTokenExpiration);
     }
 
-    public String generateRefreshToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails, refreshTokenExpiration);
-    }
-
-    /**
-     * Generates a JWT token with additional claims for the given user details.
-     *
-     * @param extraClaims additional claims to include in the token
-     * @param userDetails the user details
-     * @return the generated JWT token
-     */
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails, Long expiration) {
-        return buildToken(extraClaims, userDetails, expiration);
+    public String generateRefreshToken(Map<String, Object> claims, String subject) {
+        return generateToken(claims, subject, refreshTokenExpiration);
     }
 
 
+    public String generateToken(Map<String, Object> claims,  String subject, Long expiration) {
 
-
-    /**
-     * Builds a JWT token with the specified claims, user details, and expiration time.
-     *
-     * @param extraClaims additional claims to include in the token
-     * @param userDetails the user details
-     * @param expiration the expiration time
-     * @return the built JWT token
-     */
-    private String buildToken(
-            Map<String, Object> extraClaims,
-            UserDetails userDetails,
-            long expiration
-    ) {
-        String username = userDetails.getUsername();
-        String role = userDetails.getAuthorities().toString();
         return Jwts
-                .builder()
-                .setClaims(extraClaims)
-                .setSubject(Map
-                  .of(
-                      "username", username,
-                      "role", role
-                  )
-                  .toString()
-                )
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
+          .builder()
+          .setClaims(claims)
+          .setSubject(subject)
+          .setIssuedAt(new Date(System.currentTimeMillis()))
+          .setExpiration(new Date(System.currentTimeMillis() + expiration))
+          .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+          .compact();
     }
+
+
+
+
+
 
     /**
      * Validates the JWT token against the user details.

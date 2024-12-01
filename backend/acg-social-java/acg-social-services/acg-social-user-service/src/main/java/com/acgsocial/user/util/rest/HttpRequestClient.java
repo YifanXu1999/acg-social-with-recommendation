@@ -1,5 +1,6 @@
 package com.acgsocial.user.util.rest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpEntity;
@@ -10,9 +11,14 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
 
 //TODO change it to restclient for non-blocking requests
 @Service
+@Slf4j
 public class HttpRequestClient {
 
     private final RestTemplate restTemplate;
@@ -21,28 +27,44 @@ public class HttpRequestClient {
         this.restTemplate = new RestTemplate();
     }
 
-    public String get(String url, Map<String, String> pathVariables, Map<String, String> requestParams) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
 
-        // Replace path variables in the URL
-        for (Map.Entry<String, String> entry : pathVariables.entrySet()) {
-            url = url.replace("{" + entry.getKey() + "}", entry.getValue());
+    public String get(String url, Map<String, String> headers, Map<String, String> pathVariables,
+                      Map<String, String> requestParams) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        if(headers != null) {
+            headers.forEach(httpHeaders::add);
+        }
+        HttpEntity<Object> headerEntity = new HttpEntity<>(httpHeaders);
+
+        if(pathVariables != null) {
+            AtomicReference<String> atomicUrl = new AtomicReference<>(url);
+            pathVariables
+              .forEach((key, value) ->
+                atomicUrl.updateAndGet(currentUrl ->
+                  currentUrl.replace("{" + key + "}", value))
+              );
+            url = atomicUrl.get();
         }
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        requestParams.forEach(params::add);
+        if(requestParams != null) {
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            requestParams.forEach(params::add);
+            url = url + buildQueryString(params);
+        }
 
-        HttpEntity<Object> entity = new HttpEntity<>(headers);
+        log.info("Requesting GET: " +url);
 
+        log.info(headerEntity.toString());
         ResponseEntity<String> response = restTemplate.exchange(
-          url + buildQueryString(params),
+          url,
           HttpMethod.GET,
-          entity,
+          headerEntity,
           String.class
         );
+        log.info("Response: " + response.getBody());
         return response.getBody();
     }
+
 
     public String postRequest(String url, Object requestBody, Map<String, String> requestParams) {
         HttpHeaders headers = new HttpHeaders();

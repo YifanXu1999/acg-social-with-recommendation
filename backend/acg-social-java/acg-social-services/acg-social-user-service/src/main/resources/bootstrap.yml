@@ -45,8 +45,8 @@ security:
     refresh-token-ttl: 86400000
   oauth2:
     github:
-      client-id: your-github-client-id
-      client-secret: your-github-client-secret
+      client-id: Iv23liBKnD6A2EUN1WOY
+      client-secret: a2ffea98ae2917e7ced3b3f7e317592bdc6a7a5e
       access-token-uri: https://github.com/login/oauth/access_token
       user-detail-uri: https://api.github.com/user
     google:

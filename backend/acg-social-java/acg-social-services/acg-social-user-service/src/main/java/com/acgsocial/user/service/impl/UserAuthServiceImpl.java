@@ -11,6 +11,7 @@ import com.acgsocial.user.repository.UserConnectedAccountRepo;
 import com.acgsocial.user.repository.UserRepo;
 import com.acgsocial.user.service.UserAuthService;
 import com.acgsocial.user.util.oauth2.Oauth2HandlerFactory;
+import com.acgsocial.user.util.optional.OptionalUtil;
 import com.acgsocial.utils.jwt.JwtUtilService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.acgsocial.user.domain.entity.User;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Implementation of the UserInfoService interfaces.
@@ -162,8 +167,19 @@ public class UserAuthServiceImpl implements UserAuthService, UserDetailsService 
 
     @Override
     public AuthTokenResponse generatenNewAuthToken(User user) {
-        String accessToken = jwtUtilService.generateAccessToken(user);
-        String refreshToken = jwtUtilService.generateRefreshToken(user);
+
+        String subject = user.getId().toString();
+
+        Map<String, Object> claims = Map.of(
+          "username", OptionalUtil.getOrElse(user.getUsername(), ""),
+          "email",OptionalUtil.getOrElse(user.getEmail(), ""),
+          "role", OptionalUtil.getOrElse(user.getRole(), ""),
+          "profileImageUrl", OptionalUtil.getOrElse(user.getProfileImageUrl(), ""),
+          "verified", OptionalUtil.getOrElse(user.isVerified(), false)
+        );
+
+        String accessToken = jwtUtilService.generateAccessToken(claims, subject);
+        String refreshToken = jwtUtilService.generateRefreshToken(claims, subject);
         return new AuthTokenResponse(accessToken, refreshToken);
     }
 
