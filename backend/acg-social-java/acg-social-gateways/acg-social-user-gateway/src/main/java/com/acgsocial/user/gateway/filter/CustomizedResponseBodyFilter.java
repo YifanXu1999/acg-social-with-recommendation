@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 
-public class CustomResponseBodyFilter implements GatewayFilter {
+public class CustomizedResponseBodyFilter implements GatewayFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
