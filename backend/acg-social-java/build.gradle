@@ -85,7 +85,6 @@ project("acg-social-gateways") {
         dependencies {
             implementation project(":acg-social-utils")
             implementation project(":acg-social-commons")
-
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
             implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
             implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'

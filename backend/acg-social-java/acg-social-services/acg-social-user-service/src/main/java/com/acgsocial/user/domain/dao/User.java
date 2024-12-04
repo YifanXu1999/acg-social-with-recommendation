@@ -1,4 +1,4 @@
-package com.acgsocial.user.domain.entity;
+package com.acgsocial.user.domain.dao;
 
 import com.acgsocial.user.domain.dto.EmailSignUpRequest;
 import com.acgsocial.user.domain.dto.Oauth2SignUpRequest;

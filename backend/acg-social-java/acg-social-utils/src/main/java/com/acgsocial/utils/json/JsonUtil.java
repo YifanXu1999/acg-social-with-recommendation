@@ -25,4 +25,10 @@ public class JsonUtil {
         }
     }
 
+    public static <T> T convert(Object object, Class<T> clazz) {
+        return objectMapper.convertValue(object, clazz);
+    }
+
+
+
 }

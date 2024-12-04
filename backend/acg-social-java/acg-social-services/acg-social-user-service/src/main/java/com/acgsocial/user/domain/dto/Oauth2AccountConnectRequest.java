@@ -1,6 +1,6 @@
 package com.acgsocial.user.domain.dto;
 
-import com.acgsocial.user.domain.entity.User;
+import com.acgsocial.user.domain.dao.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

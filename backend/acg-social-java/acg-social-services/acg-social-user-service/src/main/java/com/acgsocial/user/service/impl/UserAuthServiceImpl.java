@@ -3,7 +3,7 @@ package com.acgsocial.user.service.impl;
 import com.acgsocial.common.enums.AppHttpCodeEnum;
 import com.acgsocial.common.exception.CustomException;
 import com.acgsocial.user.domain.dto.*;
-import com.acgsocial.user.domain.entity.UserConnectedAccount;
+import com.acgsocial.user.domain.dao.UserConnectedAccount;
 import com.acgsocial.user.domain.enums.Oauth2ProviderEnum;
 import com.acgsocial.user.domain.vo.AuthTokenResponse;
 import com.acgsocial.user.domain.vo.Oauth2AccountDetailResponse;
@@ -13,7 +13,6 @@ import com.acgsocial.user.service.UserAuthService;
 import com.acgsocial.user.util.oauth2.Oauth2HandlerFactory;
 import com.acgsocial.user.util.optional.OptionalUtil;
 import com.acgsocial.utils.jwt.JwtUtilService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +21,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.acgsocial.user.domain.entity.User;
+import com.acgsocial.user.domain.dao.User;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Implementation of the UserInfoService interfaces.
