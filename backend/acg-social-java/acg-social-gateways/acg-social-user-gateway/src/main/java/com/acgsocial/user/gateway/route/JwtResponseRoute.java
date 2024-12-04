@@ -48,25 +48,29 @@ public class JwtResponseRoute implements CustomizedRoute {
     }
 
     private RewriteFunction<ResponseResult, ResponseResult> rewriteFunction() {
+
         return (exchange, resposnse) -> {
+
+            LinkedHashMap<String, String>  resposnseData = (LinkedHashMap<String, String> )resposnse.getData();
+            AuthTokenResponse authTokenResponse = JsonUtil.convert(resposnseData, AuthTokenResponse.class);
+            System.out.println(authTokenResponse.getAccessToken());
+
             exchange.getSession().subscribe(session -> {
                 if(! session.isStarted()) {
                     session.start();
-                    webClient.get().uri(
-                        "http://user-service/hello/a"
-                      )
-                      .retrieve()
-                      .bodyToMono(String.class)
-                      .subscribe(response -> {
-                          System.out.println("Response: " + response);
-                      });
+//                    webClient.get().uri(
+//                        "http://user-service/hello/a"
+//                      )
+//                      .retrieve()
+//                      .bodyToMono(String.class)
+//                      .subscribe(response -> {
+//                          System.out.println("Response: " + response);
+//                      });
                     session.getAttributes().put("user",
                       resposnse.getData() + session.getId() + LocalDateTime.now() + session.getMaxIdleTime());
                 }
 
-                LinkedHashMap<String, String>  resposnseData = (LinkedHashMap<String, String> )resposnse.getData();
-                AuthTokenResponse authTokenResponse = JsonUtil.convert(resposnseData, AuthTokenResponse.class);
-                System.out.println(authTokenResponse);
+
 
                 resposnse.setData(session.getAttribute("user"));
             });
