@@ -50,6 +50,11 @@ public class JwtResponseRoute implements CustomizedRoute {
     private RewriteFunction<ResponseResult, ResponseResult> rewriteFunction() {
 
         return (exchange, resposnse) -> {
+            /*
+            1. Get the access token from the response
+            2. Update the session, if session belongs to another user, please remove.
+            3. Update session and token to user information
+             */
 
             LinkedHashMap<String, String>  resposnseData = (LinkedHashMap<String, String> )resposnse.getData();
             AuthTokenResponse authTokenResponse = JsonUtil.convert(resposnseData, AuthTokenResponse.class);
