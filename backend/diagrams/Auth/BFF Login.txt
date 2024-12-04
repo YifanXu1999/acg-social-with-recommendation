@@ -1,0 +1,9 @@
+title BFF Login Workflow
+
+FrontEnd->BFF Gateway:Send authentication request
+BFF Gateway->User Service:Forward Request
+User Service-->BFF Gateway:Return JWT Token
+BFF Gateway->BFF Gateway: Intercept JWT Token and save into session and cookie with encryption
+BFF Gateway-->FrontEnd: Return session and cookie
+
+

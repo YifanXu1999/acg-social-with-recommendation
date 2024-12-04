@@ -15,12 +15,9 @@ public class WebfluxSecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return  http
-                    .csrf(csrf->csrf.disable())
-                    .authorizeExchange(authorize -> authorize
-                        .pathMatchers("/actuator/**").permitAll()
-                        .anyExchange().authenticated()
-                    )
-                    .oauth2Login(Customizer.withDefaults())
+                    .csrf(csrf->csrf.disable()
+                    .authorizeExchange(authorize -> authorize.anyExchange().permitAll()
+                    ))
                     .build();
 
     }

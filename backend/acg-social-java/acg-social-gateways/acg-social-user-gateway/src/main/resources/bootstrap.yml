@@ -15,13 +15,6 @@ spring:
         service-name: ${spring.application.name}
         register: true
         prefer-agent-address: true
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: Iv23liBKnD6A2EUN1WOY
-            client-secret: a2ffea98ae2917e7ced3b3f7e317592bdc6a7a5e
 
 
 #      routes:

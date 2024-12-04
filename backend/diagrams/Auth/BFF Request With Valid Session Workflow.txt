@@ -1,0 +1,9 @@
+title BFF Request With Valid Session Workflow
+
+FrontEnd->BFF Gateway:Send request with session
+BFF Gateway-> BFF Gateway: Validate session by checking token attributes
+BFF Gateway->Service Layer: Route request  
+Service Layer-->BFF Gateway: Return 
+BFF Gateway--> FrontEnd: Return
+
+

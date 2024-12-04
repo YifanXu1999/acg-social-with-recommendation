@@ -1,0 +1,10 @@
+title BFF Re-Authenticate Session Workflow
+FrontEnd->FrontEnd: Generate dynamic secret token
+FrontEnd->BFF Gateway:Send cookie and secret token 
+BFF Gateway-> BFF Gateway: Decode the cookie and secret token
+BFF Gateway->BFF Gateway: Validate the tokens
+BFF Gateway->BFF Gateway: Save JWT token values into session and token
+BFF Gateway-->FrontEnd: Return session and cookie
+
+
+
