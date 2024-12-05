@@ -1,10 +1,6 @@
 spring:
   application:
     name: user-service
-  session:
-    redis:
-      namespace: user-session
-      flush-mode: immediate
   #  profiles:
   #    active: dev
   datasource:

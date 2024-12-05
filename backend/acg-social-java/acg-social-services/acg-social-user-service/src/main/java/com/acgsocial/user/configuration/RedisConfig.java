@@ -6,12 +6,10 @@ import org.redisson.config.Config;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import java.io.IOException;
 
 @Configuration
-@EnableRedisHttpSession
 public class RedisConfig {
 
     @Bean

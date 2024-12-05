@@ -1,10 +1,6 @@
 spring:
   application:
     name: user-gateway
-  session:
-    redis:
-      namespace: gateway-session
-      flush-mode: immediate
 
 
   cloud:
