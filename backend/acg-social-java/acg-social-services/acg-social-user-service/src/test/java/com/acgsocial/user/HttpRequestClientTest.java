@@ -8,9 +8,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class HttpRequestClientTest {
-    @Test
-    public void testGetAccountDetail() {
-//        httpRequestClient.get("https://api.github.com/user", null, null);
-        System.out.println("Test case executed");
-    }
+
 }

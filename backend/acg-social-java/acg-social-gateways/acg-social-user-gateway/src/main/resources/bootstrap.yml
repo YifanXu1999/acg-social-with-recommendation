@@ -1,6 +1,12 @@
 spring:
   application:
     name: user-gateway
+  session:
+    redis:
+      namespace: gateway-session
+      flush-mode: immediate
+
+
   cloud:
     gateway:
       discovery:
@@ -24,6 +30,11 @@ spring:
 #            - Path=/user-service/**
 #          filters:
 #            - RewritePath=/user-service/(?<remaining>.*), /user/$\{remaining}
+security:
+  jwt:
+    secret-key: sQwCpufC3O4dhwz3JzNpgtpKxH39JbbGZTZ3WlkY6YQ # "secrct": "user-service"
+    access-token-ttl: 8640000
+    refresh-token-ttl: 86400000
 
 server:
   port: 18080

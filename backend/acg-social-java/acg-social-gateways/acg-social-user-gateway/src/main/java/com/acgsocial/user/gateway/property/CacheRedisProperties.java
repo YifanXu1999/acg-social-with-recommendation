@@ -1,4 +1,4 @@
-package com.acgsocial.user.gateway.config;
+package com.acgsocial.user.gateway.property;
 
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;

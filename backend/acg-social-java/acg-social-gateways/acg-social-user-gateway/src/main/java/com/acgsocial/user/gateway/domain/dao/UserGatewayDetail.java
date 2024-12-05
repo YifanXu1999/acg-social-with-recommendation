@@ -1,18 +1,29 @@
 package com.acgsocial.user.gateway.domain.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 // Redis entity
-public class UserGatewayDetail {
+@Getter
+@Builder
+@AllArgsConstructor
+@Setter
+public class UserGatewayDetail implements java.io.Serializable {
     // User id
     private Long id;
+    private String userId;
+
     private List<SessionDetail> sessionDetails;
     private TokenDetail accessTokenDetail;
     private TokenDetail refreshTokenDetail;
 
 
-    
+
     private class TokenDetail {
         private String token;
         private LocalDateTime expireTime;

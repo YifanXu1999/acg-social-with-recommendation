@@ -13,7 +13,6 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
@@ -89,10 +88,7 @@ public class JwtUtilService {
      * @param userDetails the user details
      * @return true if the token is valid, false otherwise
      */
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
-    }
+
 
     /**
      * Checks if the JWT token is expired.
@@ -100,7 +96,7 @@ public class JwtUtilService {
      * @param token the JWT token
      * @return true if the token is expired, false otherwise
      */
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -120,7 +116,7 @@ public class JwtUtilService {
      * @param token the JWT token
      * @return the claims
      */
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())

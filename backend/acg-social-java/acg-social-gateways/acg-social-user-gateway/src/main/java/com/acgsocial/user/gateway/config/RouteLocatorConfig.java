@@ -39,7 +39,26 @@ public class RouteLocatorConfig {
         });
         return routeBuilder.build();
 
+    }
 
+    @Bean RouterValidator routerValidator() {
+        return new RouterValidator();
+    }
 
+    public class RouterValidator {
+
+        public boolean isByPassPath(String path) {
+            if (path.contains("login") || path.contains("register")) {
+                return true;
+            }
+            return false;
+        }
+        public void validate() {
+            // Validate the routes
+        }
+        public boolean test(String routeId) {
+            // Validate the route
+            return true;
+        }
     }
 }

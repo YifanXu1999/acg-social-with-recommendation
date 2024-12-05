@@ -5,18 +5,25 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.spring.cache.CacheConfig;
 import org.redisson.spring.cache.RedissonSpringCacheManager;
+import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableCaching
 public class RedisConfiguration {
+
+    @Bean
+    public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
+        return new RedissonConnectionFactory(redisson);
+    }
 
     @Bean
     RedissonClient redisson() throws IOException {

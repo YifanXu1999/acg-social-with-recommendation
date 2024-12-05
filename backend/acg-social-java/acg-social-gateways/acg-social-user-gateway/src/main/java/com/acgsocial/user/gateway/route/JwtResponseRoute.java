@@ -2,9 +2,16 @@ package com.acgsocial.user.gateway.route;
 
 
 import com.acgsocial.common.result.ResponseResult;
+import com.acgsocial.user.gateway.domain.dto.SessionDetail;
 import com.acgsocial.user.gateway.domain.vo.AuthTokenResponse;
+import com.acgsocial.user.gateway.util.ResponseResult.ResponseResultUtil;
+import com.acgsocial.user.gateway.util.redis.RedisKey;
+import com.acgsocial.user.gateway.util.redis.RedisUtil;
+import com.acgsocial.user.gateway.util.session.SessionUtil;
 import com.acgsocial.utils.json.JsonUtil;
+import com.acgsocial.utils.jwt.JwtUtilService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.factory.rewrite.RewriteFunction;
 import org.springframework.cloud.gateway.route.Route;
@@ -21,14 +28,20 @@ import java.util.List;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class JwtResponseRoute implements CustomizedRoute {
 
-    @Autowired
-    private WebClient webClient;
 
-    public JwtResponseRoute(WebClient webClient) {
-        this.webClient = webClient;
-    }
+    private final  WebClient webClient;
+
+
+    private final RedisUtil redisUtil;
+
+    private final JwtUtilService jwtUtil;
+
+
+
+
 
     @Override
     public Function<PredicateSpec, Buildable<Route>>  getRouteFn() {
@@ -56,9 +69,14 @@ public class JwtResponseRoute implements CustomizedRoute {
             3. Update session and token to user information
              */
 
-            LinkedHashMap<String, String>  resposnseData = (LinkedHashMap<String, String> )resposnse.getData();
-            AuthTokenResponse authTokenResponse = JsonUtil.convert(resposnseData, AuthTokenResponse.class);
-            System.out.println(authTokenResponse.getAccessToken());
+            SessionDetail sessionId = SessionUtil.getSessionDetail(exchange);
+
+            AuthTokenResponse tokenResponse = ResponseResultUtil.parse(resposnse, AuthTokenResponse.class);
+
+            // TODO Extract the user information from the token
+            jwtUtil.extractUsername(tokenResponse.getAccessToken());
+
+
 
             exchange.getSession().subscribe(session -> {
                 if(! session.isStarted()) {
