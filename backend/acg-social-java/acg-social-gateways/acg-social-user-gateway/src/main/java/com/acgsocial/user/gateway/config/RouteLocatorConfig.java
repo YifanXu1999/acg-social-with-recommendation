@@ -1,5 +1,6 @@
 package com.acgsocial.user.gateway.config;
 
+import com.acgsocial.user.gateway.domain.entity.UserGatewayDetail;
 import com.acgsocial.user.gateway.route.CustomizedRoute;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -8,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -53,9 +56,20 @@ public class RouteLocatorConfig {
             }
             return false;
         }
-        public void validate() {
-            // Validate the routes
+
+        public boolean isAuthenticated(UserGatewayDetail userGatewayDetail) {
+            if(userGatewayDetail == null) {
+                return false;
+            }
+
+            Date expiration = userGatewayDetail.getAccessTokenDetail().getExpireTime();
+            if(expiration.before(new Date())) {
+                return false;
+            }
+            // Validate the token
+            return true;
         }
+
         public boolean test(String routeId) {
             // Validate the route
             return true;

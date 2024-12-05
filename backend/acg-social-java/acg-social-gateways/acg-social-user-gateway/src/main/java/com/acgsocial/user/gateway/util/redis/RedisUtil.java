@@ -1,6 +1,5 @@
 package com.acgsocial.user.gateway.util.redis;
 
-import com.acgsocial.user.gateway.domain.dao.UserGatewayDetail;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
 import org.redisson.codec.JacksonCodec;

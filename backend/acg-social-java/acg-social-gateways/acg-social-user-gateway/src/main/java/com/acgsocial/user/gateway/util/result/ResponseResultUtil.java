@@ -1,4 +1,4 @@
-package com.acgsocial.user.gateway.util.ResponseResult;
+package com.acgsocial.user.gateway.util.result;
 
 import com.acgsocial.common.result.ResponseResult;
 import com.acgsocial.utils.json.JsonUtil;

@@ -1,14 +1,14 @@
 package com.acgsocial.user.gateway.filter;
 
 import com.acgsocial.user.gateway.config.RouteLocatorConfig;
-import com.acgsocial.user.gateway.domain.dao.UserGatewayDetail;
+import com.acgsocial.user.gateway.domain.entity.UserGatewayDetail;
 import com.acgsocial.user.gateway.domain.dto.SessionDetail;
 import com.acgsocial.user.gateway.util.session.SessionUtil;
 import com.acgsocial.utils.jwt.JwtUtilService;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
-import org.redisson.codec.JacksonCodec;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -20,9 +20,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-
 @RefreshScope
 @Component
 @Order(-1)
@@ -32,41 +29,26 @@ public class AuthenticationFilter implements GlobalFilter {
     private final RouteLocatorConfig.RouterValidator routerValidator;
     private final JwtUtilService jwtUtil;
     private final RedissonClient redissonClient;
-
-
+    private final SessionUtil sessionUtil;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
 
         // Get Session Detail (start session if not started)
-        SessionDetail sessionDetail = SessionUtil.getSessionDetail(exchange);
+        SessionDetail sessionDetail = sessionUtil.getSessionDetail(exchange);
         // Check if the request can be sent without authentication
         if (routerValidator.isByPassPath(request.getPath().value())) {
             return chain.filter(exchange);
         }
         // Retrieve the user information from the session
-        JacksonCodec<UserGatewayDetail> codec = new JacksonCodec<>(UserGatewayDetail.class);
-        redissonClient.getJsonBucket("usergatewaydetail:" + sessionDetail.getSessionId(), codec).set(UserGatewayDetail.builder().userId(
-          "abc").build());
-        UserGatewayDetail userGatewayDetail = this.getUserGatewayDetail(sessionDetail);
+        UserGatewayDetail userGatewayDetail = sessionUtil.getUserGatewayDetail(sessionDetail);
 
         // Check if the request has a valid token
-
-
-        if (routerValidator.test(request.getPath().value())) {
-            if (this.isAuthMissing(request)) {
-                return this.onError(exchange, HttpStatus.UNAUTHORIZED);
-            }
-
-            final String token = this.getAuthHeader(request);
-
-            if (jwtUtil.isTokenExpired(token)) {
-                return this.onError(exchange, HttpStatus.FORBIDDEN);
-            }
-
-            this.updateRequest(exchange, token);
+        if(! routerValidator.isAuthenticated(userGatewayDetail)) {
+            return this.onError(exchange, HttpStatus.UNAUTHORIZED);
         }
+
         return chain.filter(exchange);
     }
 
@@ -76,13 +58,6 @@ public class AuthenticationFilter implements GlobalFilter {
         return response.setComplete();
     }
 
-    private String getAuthHeader(ServerHttpRequest request) {
-        return request.getHeaders().getOrEmpty("Authorization").get(0);
-    }
-
-    private boolean isAuthMissing(ServerHttpRequest request) {
-        return !request.getHeaders().containsKey("Authorization");
-    }
 
     private void updateRequest(ServerWebExchange exchange, String token) {
         Claims claims = jwtUtil.extractAllClaims(token);
@@ -91,19 +66,6 @@ public class AuthenticationFilter implements GlobalFilter {
                 .build();
     }
 
-    private UserGatewayDetail getUserGatewayDetail(SessionDetail sessionDetail) {
-        // Retrieve the user information from the session
-        String userId = sessionDetail.getUserId();
-        AtomicReference<UserGatewayDetail> userGatewayDetail = new AtomicReference<>();
-        Optional.ofNullable(userId).ifPresent(
-            id -> {
-                JacksonCodec<UserGatewayDetail> codec = new JacksonCodec<>(UserGatewayDetail.class);
-                userGatewayDetail.set((UserGatewayDetail) redissonClient.getJsonBucket("user_gateway_detail:" + id, codec).get());
-
-            }
-        );
-        return userGatewayDetail.get();
-    }
 
 
 }
