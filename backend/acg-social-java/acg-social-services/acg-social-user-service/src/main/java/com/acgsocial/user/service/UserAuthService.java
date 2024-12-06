@@ -2,8 +2,8 @@ package com.acgsocial.user.service;
 
 
 import com.acgsocial.user.domain.dto.*;
-import com.acgsocial.user.domain.dao.User;
-import com.acgsocial.user.domain.dao.UserConnectedAccount;
+import com.acgsocial.user.domain.entity.User;
+import com.acgsocial.user.domain.entity.UserConnectedAccount;
 import com.acgsocial.user.domain.vo.AuthTokenResponse;
 
 public interface UserAuthService{

@@ -38,7 +38,7 @@ public class JwtResponseRoute implements CustomizedRoute {
     @Override
     public Function<PredicateSpec, Buildable<Route>>  getRouteFn() {
 
-        return r -> r.path("/user-service/**")
+        return r -> r.path("/user-service/account/**")
           .filters(
             f -> f
               .rewritePath("/user-service/(?<remaining>.*)", "/${remaining}")

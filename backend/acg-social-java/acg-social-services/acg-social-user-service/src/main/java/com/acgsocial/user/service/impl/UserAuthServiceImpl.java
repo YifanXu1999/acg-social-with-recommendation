@@ -3,7 +3,7 @@ package com.acgsocial.user.service.impl;
 import com.acgsocial.common.enums.AppHttpCodeEnum;
 import com.acgsocial.common.exception.CustomException;
 import com.acgsocial.user.domain.dto.*;
-import com.acgsocial.user.domain.dao.UserConnectedAccount;
+import com.acgsocial.user.domain.entity.UserConnectedAccount;
 import com.acgsocial.user.domain.enums.Oauth2ProviderEnum;
 import com.acgsocial.user.domain.vo.AuthTokenResponse;
 import com.acgsocial.user.domain.vo.Oauth2AccountDetailResponse;
@@ -24,7 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.acgsocial.user.domain.dao.User;
+import com.acgsocial.user.domain.entity.User;
 
 import java.util.Map;
 

@@ -37,7 +37,7 @@ public class JwtUtilService {
      * @param token the JWT token
      * @return the username extracted from the token
      */
-    public String extractUsername(String token) {
+    public String extracUserId(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 

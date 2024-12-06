@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableRedisWebSession(maxInactiveIntervalInSeconds = 180, redisNamespace = "acg-social-user-gateway")
 public class RedisConfiguration {
 
     @Bean

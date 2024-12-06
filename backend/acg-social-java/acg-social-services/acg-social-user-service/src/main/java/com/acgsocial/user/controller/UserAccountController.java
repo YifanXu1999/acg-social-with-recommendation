@@ -22,7 +22,7 @@ public class UserAccountController {
 
     private final UserAuthService userAuthService;
 
-    @PostMapping("/email/login")
+    @PostMapping("/login/email")
     @Operation(summary = "User Sign In", description = "Authenticate user and return JWT token")
     public ResponseResult<AuthTokenResponse> login(
       @Parameter(description = "User Sign In Data Transfer Object", required = true)
@@ -30,7 +30,7 @@ public class UserAccountController {
         return ResponseResult.success(userAuthService.loginWithEmail(emailLoginRequest));
     }
 
-    @PostMapping("/oauth2/login")
+    @PostMapping("/login/oauth2")
     public ResponseResult<AuthTokenResponse> login(@RequestBody Oauth2LoginRequest oauth2LoginRequest) {
         log.info("Oauth2 Login Request: {}", oauth2LoginRequest);
         return ResponseResult.success(userAuthService.loginWithOauth2(oauth2LoginRequest));

@@ -5,21 +5,27 @@ import com.acgsocial.user.gateway.domain.entity.UserGatewayDetail;
 import com.acgsocial.user.gateway.domain.dto.SessionDetail;
 import com.acgsocial.user.gateway.util.session.SessionUtil;
 import com.acgsocial.utils.jwt.JwtUtilService;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @RefreshScope
 @Component
@@ -36,11 +42,13 @@ public class AuthenticationFilter implements GlobalFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
         ServerHttpRequest request = exchange.getRequest();
+
         // Init session and retrive detail from redis
         SessionDetail sessionDetail = sessionUtil.initSession(exchange);
 
         // Retrieve the user information from the session
         UserGatewayDetail userGatewayDetail = sessionUtil.getUserGatewayDetail(sessionDetail);
+
 
         if (routerValidator.isByPassPath(request.getPath().value())) {
             return chain.filter(exchange);
@@ -50,7 +58,12 @@ public class AuthenticationFilter implements GlobalFilter {
             return this.onError(exchange, HttpStatus.UNAUTHORIZED);
         }
 
+        // If authenticated, update the request with the user information
+        // TODO: Insert access token and refresh token to the header
+        exchange = updateRequestAuthHeaders(exchange, userGatewayDetail.getAccessTokenDetail().getToken());
+
         return chain.filter(exchange);
+
     }
 
     private Mono<Void> onError(ServerWebExchange exchange, HttpStatus httpStatus) {
@@ -60,11 +73,16 @@ public class AuthenticationFilter implements GlobalFilter {
     }
 
 
-    private void updateRequest(ServerWebExchange exchange, String token) {
-        Claims claims = jwtUtil.extractAllClaims(token);
-        exchange.getRequest().mutate()
-                .header("email", String.valueOf(claims.get("email")))
-                .build();
+    private ServerWebExchange updateRequestAuthHeaders(ServerWebExchange exchange, String token) {
+        ServerHttpRequest request = exchange.getRequest().mutate().headers((httpHeaders) -> {;
+            String csrf = new HttpCookie("csrf", "3838a26d-07f7-11e9-b5f7").toString();
+            String ssn = new HttpCookie("ssn", "MTU0NT").toString();
+            String auth = new HttpCookie("Access-Token",  token).toString();
+            httpHeaders.set("Cookie", csrf+";"+ssn + ";" + auth);
+
+        }).build();
+
+        return exchange.mutate().request(request).build();
     }
 
 

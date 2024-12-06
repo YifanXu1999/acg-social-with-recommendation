@@ -1,4 +1,4 @@
-package com.acgsocial.user.domain.dao;
+package com.acgsocial.user.domain.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

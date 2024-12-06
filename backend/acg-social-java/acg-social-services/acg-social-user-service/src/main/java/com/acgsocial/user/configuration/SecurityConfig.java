@@ -54,11 +54,13 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable() ).authorizeHttpRequests(customizer -> {
-            customizer.anyRequest().permitAll();
+            customizer.requestMatchers("/account/login/**", "/actuator/**")
+              .permitAll()
+              .anyRequest()
+              .authenticated();
         });
 
-        http.anonymous(Customizer.withDefaults());
-
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
 

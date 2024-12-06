@@ -41,8 +41,8 @@ public class UserGatewayDetail implements java.io.Serializable {
         Claims refreshClaims = jwtUtilService().extractAllClaims(refreshToken);
         this.id = Long.valueOf(accessclaims.getSubject());
         this.userName = accessclaims.get("username", String.class);
-        this.accessTokenDetail = new TokenDetail(accessclaims);
-        this.refreshTokenDetail = new TokenDetail(refreshClaims);
+        this.accessTokenDetail = new TokenDetail(accessToken);
+        this.refreshTokenDetail = new TokenDetail(refreshToken);
         this.sessionDetails.add(sessionDetail);
 
 
@@ -56,16 +56,21 @@ public class UserGatewayDetail implements java.io.Serializable {
     @NoArgsConstructor
     public static class TokenDetail {
         private Date expireTime;
+        private String token;
+
         private boolean isExpired() {
             return expireTime.after(new Date());
         }
 
-        public TokenDetail (Claims claims) {
+
+        public TokenDetail (String token) {
+            Claims claims = jwtUtilService().extractAllClaims(token);
             this.expireTime = claims.getExpiration();
+            this.token = token;
         }
     }
 
-    private JwtUtilService jwtUtilService (){
+    private static JwtUtilService jwtUtilService(){
         return ApplicationContextProvider.bean(JwtUtilService.class);
     }
 

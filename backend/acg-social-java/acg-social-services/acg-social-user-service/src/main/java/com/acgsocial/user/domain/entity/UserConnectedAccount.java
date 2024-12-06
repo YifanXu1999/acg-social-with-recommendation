@@ -1,4 +1,4 @@
-package com.acgsocial.user.domain.dao;
+package com.acgsocial.user.domain.entity;
 
 import com.acgsocial.user.domain.dto.Oauth2AccountConnectRequest;
 import jakarta.persistence.*;
