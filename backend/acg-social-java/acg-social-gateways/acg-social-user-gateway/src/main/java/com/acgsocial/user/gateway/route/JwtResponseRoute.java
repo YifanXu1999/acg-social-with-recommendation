@@ -19,6 +19,7 @@ import org.springframework.cloud.gateway.route.builder.PredicateSpec;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.function.Function;
 
 @Component
@@ -69,7 +70,7 @@ public class JwtResponseRoute implements CustomizedRoute {
 
             redisUtil.setJson(RedisKey.USER_GATEWAY_DETAIL + userId, userGatewayDetail);
             // TODO Extract the user information from the token
-
+            redisUtil.setHashMap(RedisKey.USER_SESSION + sessionDetail.getSessionId(), sessionDetail.getKeyValueList(), Duration.ofMinutes(30));
             exchange.getResponse().addCookie(org.springframework.http.ResponseCookie.from("cookieName", "cookieValue").build());
             return Mono.just(resposnse);
         };

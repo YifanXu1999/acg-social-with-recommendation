@@ -1,6 +1,9 @@
 spring:
   application:
     name: user-gateway
+  session:
+    redis:
+      namespace: redis-session
 
 
   cloud:

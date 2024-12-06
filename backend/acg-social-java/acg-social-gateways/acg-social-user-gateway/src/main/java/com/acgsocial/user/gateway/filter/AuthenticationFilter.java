@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -22,7 +23,7 @@ import reactor.core.publisher.Mono;
 
 @RefreshScope
 @Component
-@Order(-1)
+@Order(Ordered.LOWEST_PRECEDENCE)
 @RequiredArgsConstructor
 public class AuthenticationFilter implements GlobalFilter {
 
@@ -33,17 +34,17 @@ public class AuthenticationFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        ServerHttpRequest request = exchange.getRequest();
 
-        // Get Session Detail (start session if not started)
-        SessionDetail sessionDetail = sessionUtil.getSessionDetail(exchange);
-        // Check if the request can be sent without authentication
-        if (routerValidator.isByPassPath(request.getPath().value())) {
-            return chain.filter(exchange);
-        }
+        ServerHttpRequest request = exchange.getRequest();
+        // Init session and retrive detail from redis
+        SessionDetail sessionDetail = sessionUtil.initSession(exchange);
+
         // Retrieve the user information from the session
         UserGatewayDetail userGatewayDetail = sessionUtil.getUserGatewayDetail(sessionDetail);
 
+        if (routerValidator.isByPassPath(request.getPath().value())) {
+            return chain.filter(exchange);
+        }
         // Check if the request has a valid token
         if(! routerValidator.isAuthenticated(userGatewayDetail)) {
             return this.onError(exchange, HttpStatus.UNAUTHORIZED);
