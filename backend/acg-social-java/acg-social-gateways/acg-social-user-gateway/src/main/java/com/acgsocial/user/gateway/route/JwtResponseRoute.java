@@ -60,12 +60,11 @@ public class JwtResponseRoute implements CustomizedRoute {
             2. Update the session, if session belongs to another user, please remove.
             3. Update session and token to user information
              */
-
-
             AuthTokenResponse tokenResponse = ResponseResultUtil.parse(resposnse, AuthTokenResponse.class);
             Long userId = Long.valueOf(jwtUtil.extractAllClaims(tokenResponse.getAccessToken()).getSubject());
-            sessionUtil.setUserId(exchange, userId.toString());
+
             SessionDetail sessionDetail = sessionUtil.getSessionDetail(exchange);
+            sessionDetail.setUserId(userId);
             UserGatewayDetail userGatewayDetail = new UserGatewayDetail(tokenResponse, sessionDetail);
 
             redisUtil.setJson(RedisKey.USER_GATEWAY_DETAIL + userId, userGatewayDetail);

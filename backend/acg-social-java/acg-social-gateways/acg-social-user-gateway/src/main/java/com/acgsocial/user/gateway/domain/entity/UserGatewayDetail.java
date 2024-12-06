@@ -6,10 +6,7 @@ import com.acgsocial.user.gateway.util.context.ApplicationContextProvider;
 import com.acgsocial.user.gateway.util.session.SessionUtil;
 import com.acgsocial.utils.jwt.JwtUtilService;
 import io.jsonwebtoken.Claims;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -21,7 +18,9 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
+@ToString
 public class UserGatewayDetail implements java.io.Serializable {
     // User id
     private Long id;
@@ -54,7 +53,8 @@ public class UserGatewayDetail implements java.io.Serializable {
 
     @Getter
     @AllArgsConstructor
-    public class TokenDetail {
+    @NoArgsConstructor
+    public static class TokenDetail {
         private Date expireTime;
         private boolean isExpired() {
             return expireTime.after(new Date());

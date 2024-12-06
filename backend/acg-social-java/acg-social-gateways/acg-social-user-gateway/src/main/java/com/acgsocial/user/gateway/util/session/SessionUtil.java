@@ -53,6 +53,7 @@ public class SessionUtil {
         }
 
 
+        // Refresh the session cookie of the response
         ResponseCookie sessionCookie = ResponseCookie.from(SESSION_NAME, sessionID)
           .path("/")
           .httpOnly(true) // Prevents client-side scripts from accessing the cookie
@@ -61,12 +62,9 @@ public class SessionUtil {
           .build();
 
         exchange.getResponse().addCookie(sessionCookie);
-
-
-
-
         return sessionDetail;
     }
+
 
     public void setUserId(ServerWebExchange exchange, String userId) {
         exchange.getSession().subscribe(
@@ -80,30 +78,24 @@ public class SessionUtil {
     }
 
     public  SessionDetail getSessionDetail(ServerWebExchange exchange) {
-        SessionDetail sessionDetail = new SessionDetail();
-        exchange.getSession().subscribe(
-                session -> {
-                    if (!session.isStarted()) {
-                        session.start();
-                        System.out.println("2000000\n\n\n" +session.getId());
-                    }
-                    sessionDetail.setSessionId(session.getId());
-                    System.out.println("1000000\n\n\n" +session.getId());
-                    sessionDetail.setUserId(session.getAttributeOrDefault("userId", null));
-                }
-        );
-
-        System.out.println("order +" + sessionDetail.getSessionId());
+        // Find session detail by session id
+        String sessionId = exchange.getResponse().getCookies().get(SESSION_NAME).getFirst().getValue();
+        RMap<String, Object> sessionMap = redisUtil.getHashMap(RedisKey.USER_SESSION + sessionId);
+        // Build SessionDetail object
+        SessionDetail sessionDetail = new SessionDetail(sessionMap);
         return sessionDetail;
     }
 
     public UserGatewayDetail getUserGatewayDetail(SessionDetail sessionDetail) {
         // Retrieve the user information from the session
-        String userId = sessionDetail.getUserId();
+
+
+        Long userId = sessionDetail.getUserId();
         AtomicReference<UserGatewayDetail> userGatewayDetail = new AtomicReference<>();
         Optional.ofNullable(userId).ifPresent(
           id -> {
               JacksonCodec<UserGatewayDetail> codec = new JacksonCodec<>(UserGatewayDetail.class);
+              System.out.println(redissonClient.getJsonBucket("user_gateway_detail:" + id, codec).get());
               userGatewayDetail.set((UserGatewayDetail) redissonClient.getJsonBucket("user_gateway_detail:" + id, codec).get());
 
           }
